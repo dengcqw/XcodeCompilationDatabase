@@ -7,13 +7,17 @@ let unitQuote = ""
 /// Lex parts of a shell command.
 public func shlex(_ input: String) -> [String] {
     var result: [String] = []
-   
+
     var accumulator = ""
     var quote = unitQuote
     var escape = true
-    
+
     let terminateLexeme = {
         if accumulator != "" {
+            accumulator = accumulator.replacingOccurrences(of: "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin", with: "$BIN_PATH")
+            accumulator = accumulator.replacingOccurrences(of: "/Users/dengjinlong/Library/Developer/Xcode/DerivedData/TVGuor-fomvyhexvtnxgiapyrtldmbgjnod/Build", with: "$BUILD_PATH")
+            accumulator = accumulator.replacingOccurrences(of: "/Users/dengjinlong/Documents/8-tvguo/2-TVGuoiOSApp", with: "$PRJ_PATH")
+            accumulator = accumulator.replacingOccurrences(of: "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain", with: "$TOOL_CHAIN_PATH")
             result.append(accumulator)
             accumulator = "";
         }
@@ -61,7 +65,7 @@ func isCC(lexed: [String]) -> Bool {
 
 /// Frontend invocations
 /// Currently, it uses frontend invocations to prevent duplication of Swift's
-/// driver. ( consider using `swiftc` instead ) 
+/// driver. ( consider using `swiftc` instead )
 func isSwiftFrontend(lexed: [String]) -> Bool {
     for arg in lexed {
         if arg == " " {
@@ -120,12 +124,13 @@ extension Entry {
     public static func entry(for lexed: [String], dirHint: String? = nil) -> Entry? {
         let line = lexed.joined(separator: " ")
         if isSwiftFrontend(lexed: lexed) {
-            guard
-              let file = swiftFileInSwiftInvocation(lexed: lexed),
-              let dir = workingDirectoryInSwiftInvocation(lexed: lexed) else {
-                  return nil
-              }
-              return Entry(file: file, command: line, directory: dir)
+            guard let file = swiftFileInSwiftInvocation(lexed: lexed) else {
+                return nil
+            }
+            if file.contains("Pods/") {
+                return nil
+            }
+            return Entry(file: file, command: line, directory: "")
         }
         if isCC(lexed: lexed) {
             let firstFile = lexed.enumerated().compactMap {
@@ -136,6 +141,10 @@ extension Entry {
             guard
                 let file = firstFile,
                 let dirHint = dirHint else { return nil }
+            
+            if file.contains("Pods/") {
+                return nil
+            }
             return Entry(file: file, command: line, directory: dirHint)
         }
 
@@ -174,21 +183,32 @@ func getPreviousCDAction(parsed: [ParsedNode]) -> String? {
 public func parse(log: String) -> [ParsedNode] {
     // Consider moving this into shlex
     let lines = log.components(separatedBy: "\n")
+    var getSwift = false
+    var getGCC = false
     return lines.reduce(into: [ParsedNode]()) {
         accum, line in
+        if !line.contains("-module-name TVGuor") {
+            return
+        }
+        if getSwift {
+            return
+        }
+
         let lexed = shlex(line)
         if isSwiftFrontend(lexed: lexed) {
             if let entry = Entry.entry(for: lexed) {
                 accum.append(.entry(line: line, lexed: lexed, entry: entry))
+                getSwift = true
             }
         } else if isCC(lexed: lexed) {
-            // We need to look back at the previous 
+            // We need to look back at the previous
             guard let cdAction = getPreviousCDAction(parsed: accum) else {
                 print("warning: unexpected usage of clang")
                 return
             }
             if let entry = Entry.entry(for: lexed, dirHint: cdAction) {
                 accum.append(.entry(line: line, lexed: lexed, entry: entry))
+                getGCC = true
             }
         } else if lexed.first == " " {
             /// Parse fragments of shell commands in Xcode.
@@ -211,6 +231,7 @@ public func getEntries(parsed: [ParsedNode]) -> [Entry] {
 
 public func writeEntries(entries: [Entry], to path: String) throws {
     let encoder = JSONEncoder()
+    encoder.outputFormatting = .prettyPrinted
     let data = try encoder.encode(entries)
     try data.write(to: URL(fileURLWithPath: path), options: .atomic)
 }
