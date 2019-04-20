@@ -1,672 +1,590 @@
 // !$*UTF8*$!
 {
-   archiveVersion = "1";
-   objectVersion = "46";
-   objects = {
-      "OBJ_1" = {
-         isa = "PBXProject";
-         attributes = {
-            LastUpgradeCheck = "9999";
-         };
-         buildConfigurationList = "OBJ_2";
-         compatibilityVersion = "Xcode 3.2";
-         developmentRegion = "English";
-         hasScannedForEncodings = "0";
-         knownRegions = (
-            "en"
-         );
-         mainGroup = "OBJ_5";
-         productRefGroup = "OBJ_16";
-         projectDirPath = ".";
-         targets = (
-            "XcodeCompilationDatabase::XcodeCompilationDatabase",
-            "XcodeCompilationDatabase::XcodeCompilationDatabaseCore",
-            "XcodeCompilationDatabase::SwiftPMPackageDescription",
-            "XcodeCompilationDatabase::XcodeCompilationDatabasePackageTests::ProductTarget",
-            "XcodeCompilationDatabase::XcodeCompilationDatabaseTests"
-         );
-      };
-      "OBJ_10" = {
-         isa = "PBXGroup";
-         children = (
-            "OBJ_11"
-         );
-         name = "XcodeCompilationDatabaseCore";
-         path = "Sources/XcodeCompilationDatabaseCore";
-         sourceTree = "SOURCE_ROOT";
-      };
-      "OBJ_11" = {
-         isa = "PBXFileReference";
-         path = "XcodeCompilationDatabase.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_12" = {
-         isa = "PBXGroup";
-         children = (
-            "OBJ_13"
-         );
-         name = "Tests";
-         path = "";
-         sourceTree = "SOURCE_ROOT";
-      };
-      "OBJ_13" = {
-         isa = "PBXGroup";
-         children = (
-            "OBJ_14"
-         );
-         name = "XcodeCompilationDatabaseTests";
-         path = "Tests/XcodeCompilationDatabaseTests";
-         sourceTree = "SOURCE_ROOT";
-      };
-      "OBJ_14" = {
-         isa = "PBXFileReference";
-         path = "LogParsingTests.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_15" = {
-         isa = "PBXFileReference";
-         path = "ExampleLogs";
-         sourceTree = "SOURCE_ROOT";
-      };
-      "OBJ_16" = {
-         isa = "PBXGroup";
-         children = (
-            "XcodeCompilationDatabase::XcodeCompilationDatabaseTests::Product",
-            "XcodeCompilationDatabase::XcodeCompilationDatabaseCore::Product",
-            "XcodeCompilationDatabase::XcodeCompilationDatabase::Product"
-         );
-         name = "Products";
-         path = "";
-         sourceTree = "BUILT_PRODUCTS_DIR";
-      };
-      "OBJ_2" = {
-         isa = "XCConfigurationList";
-         buildConfigurations = (
-            "OBJ_3",
-            "OBJ_4"
-         );
-         defaultConfigurationIsVisible = "0";
-         defaultConfigurationName = "Release";
-      };
-      "OBJ_21" = {
-         isa = "XCConfigurationList";
-         buildConfigurations = (
-            "OBJ_22",
-            "OBJ_23"
-         );
-         defaultConfigurationIsVisible = "0";
-         defaultConfigurationName = "Release";
-      };
-      "OBJ_22" = {
-         isa = "XCBuildConfiguration";
-         buildSettings = {
-            FRAMEWORK_SEARCH_PATHS = (
-               "$(inherited)",
-               "$(PLATFORM_DIR)/Developer/Library/Frameworks"
-            );
-            HEADER_SEARCH_PATHS = (
-               "$(inherited)"
-            );
-            INFOPLIST_FILE = "XcodeCompilationDatabase.xcodeproj/XcodeCompilationDatabase_Info.plist";
-            LD_RUNPATH_SEARCH_PATHS = (
-               "$(inherited)",
-               "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
-               "@executable_path"
-            );
-            OTHER_CFLAGS = (
-               "$(inherited)"
-            );
-            OTHER_LDFLAGS = (
-               "$(inherited)"
-            );
-            OTHER_SWIFT_FLAGS = (
-               "$(inherited)"
-            );
-            SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-               "$(inherited)"
-            );
-            SWIFT_FORCE_DYNAMIC_LINK_STDLIB = "YES";
-            SWIFT_FORCE_STATIC_LINK_STDLIB = "NO";
-            SWIFT_VERSION = "4.0";
-            TARGET_NAME = "XcodeCompilationDatabase";
-         };
-         name = "Debug";
-      };
-      "OBJ_23" = {
-         isa = "XCBuildConfiguration";
-         buildSettings = {
-            FRAMEWORK_SEARCH_PATHS = (
-               "$(inherited)",
-               "$(PLATFORM_DIR)/Developer/Library/Frameworks"
-            );
-            HEADER_SEARCH_PATHS = (
-               "$(inherited)"
-            );
-            INFOPLIST_FILE = "XcodeCompilationDatabase.xcodeproj/XcodeCompilationDatabase_Info.plist";
-            LD_RUNPATH_SEARCH_PATHS = (
-               "$(inherited)",
-               "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
-               "@executable_path"
-            );
-            OTHER_CFLAGS = (
-               "$(inherited)"
-            );
-            OTHER_LDFLAGS = (
-               "$(inherited)"
-            );
-            OTHER_SWIFT_FLAGS = (
-               "$(inherited)"
-            );
-            SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-               "$(inherited)"
-            );
-            SWIFT_FORCE_DYNAMIC_LINK_STDLIB = "YES";
-            SWIFT_FORCE_STATIC_LINK_STDLIB = "NO";
-            SWIFT_VERSION = "4.0";
-            TARGET_NAME = "XcodeCompilationDatabase";
-         };
-         name = "Release";
-      };
-      "OBJ_24" = {
-         isa = "PBXSourcesBuildPhase";
-         files = (
-            "OBJ_25"
-         );
-      };
-      "OBJ_25" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_9";
-      };
-      "OBJ_26" = {
-         isa = "PBXFrameworksBuildPhase";
-         files = (
-            "OBJ_27"
-         );
-      };
-      "OBJ_27" = {
-         isa = "PBXBuildFile";
-         fileRef = "XcodeCompilationDatabase::XcodeCompilationDatabaseCore::Product";
-      };
-      "OBJ_28" = {
-         isa = "PBXTargetDependency";
-         target = "XcodeCompilationDatabase::XcodeCompilationDatabaseCore";
-      };
-      "OBJ_3" = {
-         isa = "XCBuildConfiguration";
-         buildSettings = {
-            CLANG_ENABLE_OBJC_ARC = "YES";
-            COMBINE_HIDPI_IMAGES = "YES";
-            COPY_PHASE_STRIP = "NO";
-            DEBUG_INFORMATION_FORMAT = "dwarf";
-            DYLIB_INSTALL_NAME_BASE = "@rpath";
-            ENABLE_NS_ASSERTIONS = "YES";
-            GCC_OPTIMIZATION_LEVEL = "0";
-            GCC_PREPROCESSOR_DEFINITIONS = (
-               "DEBUG=1",
-               "$(inherited)"
-            );
-            MACOSX_DEPLOYMENT_TARGET = "10.10";
-            ONLY_ACTIVE_ARCH = "YES";
-            OTHER_SWIFT_FLAGS = (
-               "-DXcode"
-            );
-            PRODUCT_NAME = "$(TARGET_NAME)";
-            SDKROOT = "macosx";
-            SUPPORTED_PLATFORMS = (
-               "macosx",
-               "iphoneos",
-               "iphonesimulator",
-               "appletvos",
-               "appletvsimulator",
-               "watchos",
-               "watchsimulator"
-            );
-            SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-               "SWIFT_PACKAGE",
-               "DEBUG"
-            );
-            SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-            USE_HEADERMAP = "NO";
-         };
-         name = "Debug";
-      };
-      "OBJ_30" = {
-         isa = "XCConfigurationList";
-         buildConfigurations = (
-            "OBJ_31",
-            "OBJ_32"
-         );
-         defaultConfigurationIsVisible = "0";
-         defaultConfigurationName = "Release";
-      };
-      "OBJ_31" = {
-         isa = "XCBuildConfiguration";
-         buildSettings = {
-            ENABLE_TESTABILITY = "YES";
-            FRAMEWORK_SEARCH_PATHS = (
-               "$(inherited)",
-               "$(PLATFORM_DIR)/Developer/Library/Frameworks"
-            );
-            HEADER_SEARCH_PATHS = (
-               "$(inherited)"
-            );
-            INFOPLIST_FILE = "XcodeCompilationDatabase.xcodeproj/XcodeCompilationDatabaseCore_Info.plist";
-            LD_RUNPATH_SEARCH_PATHS = (
-               "$(inherited)",
-               "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx"
-            );
-            OTHER_CFLAGS = (
-               "$(inherited)"
-            );
-            OTHER_LDFLAGS = (
-               "$(inherited)"
-            );
-            OTHER_SWIFT_FLAGS = (
-               "$(inherited)"
-            );
-            PRODUCT_BUNDLE_IDENTIFIER = "XcodeCompilationDatabaseCore";
-            PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-            PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-            SKIP_INSTALL = "YES";
-            SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-               "$(inherited)"
-            );
-            SWIFT_VERSION = "4.0";
-            TARGET_NAME = "XcodeCompilationDatabaseCore";
-         };
-         name = "Debug";
-      };
-      "OBJ_32" = {
-         isa = "XCBuildConfiguration";
-         buildSettings = {
-            ENABLE_TESTABILITY = "YES";
-            FRAMEWORK_SEARCH_PATHS = (
-               "$(inherited)",
-               "$(PLATFORM_DIR)/Developer/Library/Frameworks"
-            );
-            HEADER_SEARCH_PATHS = (
-               "$(inherited)"
-            );
-            INFOPLIST_FILE = "XcodeCompilationDatabase.xcodeproj/XcodeCompilationDatabaseCore_Info.plist";
-            LD_RUNPATH_SEARCH_PATHS = (
-               "$(inherited)",
-               "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx"
-            );
-            OTHER_CFLAGS = (
-               "$(inherited)"
-            );
-            OTHER_LDFLAGS = (
-               "$(inherited)"
-            );
-            OTHER_SWIFT_FLAGS = (
-               "$(inherited)"
-            );
-            PRODUCT_BUNDLE_IDENTIFIER = "XcodeCompilationDatabaseCore";
-            PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-            PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-            SKIP_INSTALL = "YES";
-            SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-               "$(inherited)"
-            );
-            SWIFT_VERSION = "4.0";
-            TARGET_NAME = "XcodeCompilationDatabaseCore";
-         };
-         name = "Release";
-      };
-      "OBJ_33" = {
-         isa = "PBXSourcesBuildPhase";
-         files = (
-            "OBJ_34"
-         );
-      };
-      "OBJ_34" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_11";
-      };
-      "OBJ_35" = {
-         isa = "PBXFrameworksBuildPhase";
-         files = (
-         );
-      };
-      "OBJ_37" = {
-         isa = "XCConfigurationList";
-         buildConfigurations = (
-            "OBJ_38",
-            "OBJ_39"
-         );
-         defaultConfigurationIsVisible = "0";
-         defaultConfigurationName = "Release";
-      };
-      "OBJ_38" = {
-         isa = "XCBuildConfiguration";
-         buildSettings = {
-            LD = "/usr/bin/true";
-            OTHER_SWIFT_FLAGS = (
-               "-swift-version",
-               "4",
-               "-I",
-               "$(TOOLCHAIN_DIR)/usr/lib/swift/pm/4",
-               "-target",
-               "x86_64-apple-macosx10.10",
-               "-sdk",
-               "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk"
-            );
-            SWIFT_VERSION = "4.0";
-         };
-         name = "Debug";
-      };
-      "OBJ_39" = {
-         isa = "XCBuildConfiguration";
-         buildSettings = {
-            LD = "/usr/bin/true";
-            OTHER_SWIFT_FLAGS = (
-               "-swift-version",
-               "4",
-               "-I",
-               "$(TOOLCHAIN_DIR)/usr/lib/swift/pm/4",
-               "-target",
-               "x86_64-apple-macosx10.10",
-               "-sdk",
-               "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk"
-            );
-            SWIFT_VERSION = "4.0";
-         };
-         name = "Release";
-      };
-      "OBJ_4" = {
-         isa = "XCBuildConfiguration";
-         buildSettings = {
-            CLANG_ENABLE_OBJC_ARC = "YES";
-            COMBINE_HIDPI_IMAGES = "YES";
-            COPY_PHASE_STRIP = "YES";
-            DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-            DYLIB_INSTALL_NAME_BASE = "@rpath";
-            GCC_OPTIMIZATION_LEVEL = "s";
-            MACOSX_DEPLOYMENT_TARGET = "10.10";
-            OTHER_SWIFT_FLAGS = (
-               "-DXcode"
-            );
-            PRODUCT_NAME = "$(TARGET_NAME)";
-            SDKROOT = "macosx";
-            SUPPORTED_PLATFORMS = (
-               "macosx",
-               "iphoneos",
-               "iphonesimulator",
-               "appletvos",
-               "appletvsimulator",
-               "watchos",
-               "watchsimulator"
-            );
-            SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-               "SWIFT_PACKAGE"
-            );
-            SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-            USE_HEADERMAP = "NO";
-         };
-         name = "Release";
-      };
-      "OBJ_40" = {
-         isa = "PBXSourcesBuildPhase";
-         files = (
-            "OBJ_41"
-         );
-      };
-      "OBJ_41" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_6";
-      };
-      "OBJ_43" = {
-         isa = "XCConfigurationList";
-         buildConfigurations = (
-            "OBJ_44",
-            "OBJ_45"
-         );
-         defaultConfigurationIsVisible = "0";
-         defaultConfigurationName = "Release";
-      };
-      "OBJ_44" = {
-         isa = "XCBuildConfiguration";
-         buildSettings = {
-         };
-         name = "Debug";
-      };
-      "OBJ_45" = {
-         isa = "XCBuildConfiguration";
-         buildSettings = {
-         };
-         name = "Release";
-      };
-      "OBJ_46" = {
-         isa = "PBXTargetDependency";
-         target = "XcodeCompilationDatabase::XcodeCompilationDatabaseTests";
-      };
-      "OBJ_48" = {
-         isa = "XCConfigurationList";
-         buildConfigurations = (
-            "OBJ_49",
-            "OBJ_50"
-         );
-         defaultConfigurationIsVisible = "0";
-         defaultConfigurationName = "Release";
-      };
-      "OBJ_49" = {
-         isa = "XCBuildConfiguration";
-         buildSettings = {
-            CLANG_ENABLE_MODULES = "YES";
-            EMBEDDED_CONTENT_CONTAINS_SWIFT = "YES";
-            FRAMEWORK_SEARCH_PATHS = (
-               "$(inherited)",
-               "$(PLATFORM_DIR)/Developer/Library/Frameworks"
-            );
-            HEADER_SEARCH_PATHS = (
-               "$(inherited)"
-            );
-            INFOPLIST_FILE = "XcodeCompilationDatabase.xcodeproj/XcodeCompilationDatabaseTests_Info.plist";
-            LD_RUNPATH_SEARCH_PATHS = (
-               "$(inherited)",
-               "@loader_path/../Frameworks",
-               "@loader_path/Frameworks"
-            );
-            OTHER_CFLAGS = (
-               "$(inherited)"
-            );
-            OTHER_LDFLAGS = (
-               "$(inherited)"
-            );
-            OTHER_SWIFT_FLAGS = (
-               "$(inherited)"
-            );
-            SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-               "$(inherited)"
-            );
-            SWIFT_VERSION = "4.0";
-            TARGET_NAME = "XcodeCompilationDatabaseTests";
-         };
-         name = "Debug";
-      };
-      "OBJ_5" = {
-         isa = "PBXGroup";
-         children = (
-            "OBJ_6",
-            "OBJ_7",
-            "OBJ_12",
-            "OBJ_15",
-            "OBJ_16"
-         );
-         path = "";
-         sourceTree = "<group>";
-      };
-      "OBJ_50" = {
-         isa = "XCBuildConfiguration";
-         buildSettings = {
-            CLANG_ENABLE_MODULES = "YES";
-            EMBEDDED_CONTENT_CONTAINS_SWIFT = "YES";
-            FRAMEWORK_SEARCH_PATHS = (
-               "$(inherited)",
-               "$(PLATFORM_DIR)/Developer/Library/Frameworks"
-            );
-            HEADER_SEARCH_PATHS = (
-               "$(inherited)"
-            );
-            INFOPLIST_FILE = "XcodeCompilationDatabase.xcodeproj/XcodeCompilationDatabaseTests_Info.plist";
-            LD_RUNPATH_SEARCH_PATHS = (
-               "$(inherited)",
-               "@loader_path/../Frameworks",
-               "@loader_path/Frameworks"
-            );
-            OTHER_CFLAGS = (
-               "$(inherited)"
-            );
-            OTHER_LDFLAGS = (
-               "$(inherited)"
-            );
-            OTHER_SWIFT_FLAGS = (
-               "$(inherited)"
-            );
-            SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-               "$(inherited)"
-            );
-            SWIFT_VERSION = "4.0";
-            TARGET_NAME = "XcodeCompilationDatabaseTests";
-         };
-         name = "Release";
-      };
-      "OBJ_51" = {
-         isa = "PBXSourcesBuildPhase";
-         files = (
-            "OBJ_52"
-         );
-      };
-      "OBJ_52" = {
-         isa = "PBXBuildFile";
-         fileRef = "OBJ_14";
-      };
-      "OBJ_53" = {
-         isa = "PBXFrameworksBuildPhase";
-         files = (
-            "OBJ_54"
-         );
-      };
-      "OBJ_54" = {
-         isa = "PBXBuildFile";
-         fileRef = "XcodeCompilationDatabase::XcodeCompilationDatabaseCore::Product";
-      };
-      "OBJ_55" = {
-         isa = "PBXTargetDependency";
-         target = "XcodeCompilationDatabase::XcodeCompilationDatabaseCore";
-      };
-      "OBJ_6" = {
-         isa = "PBXFileReference";
-         explicitFileType = "sourcecode.swift";
-         path = "Package.swift";
-         sourceTree = "<group>";
-      };
-      "OBJ_7" = {
-         isa = "PBXGroup";
-         children = (
-            "OBJ_8",
-            "OBJ_10"
-         );
-         name = "Sources";
-         path = "";
-         sourceTree = "SOURCE_ROOT";
-      };
-      "OBJ_8" = {
-         isa = "PBXGroup";
-         children = (
-            "OBJ_9"
-         );
-         name = "XcodeCompilationDatabase";
-         path = "Sources/XcodeCompilationDatabase";
-         sourceTree = "SOURCE_ROOT";
-      };
-      "OBJ_9" = {
-         isa = "PBXFileReference";
-         path = "main.swift";
-         sourceTree = "<group>";
-      };
-      "XcodeCompilationDatabase::SwiftPMPackageDescription" = {
-         isa = "PBXNativeTarget";
-         buildConfigurationList = "OBJ_37";
-         buildPhases = (
-            "OBJ_40"
-         );
-         dependencies = (
-         );
-         name = "XcodeCompilationDatabasePackageDescription";
-         productName = "XcodeCompilationDatabasePackageDescription";
-         productType = "com.apple.product-type.framework";
-      };
-      "XcodeCompilationDatabase::XcodeCompilationDatabase" = {
-         isa = "PBXNativeTarget";
-         buildConfigurationList = "OBJ_21";
-         buildPhases = (
-            "OBJ_24",
-            "OBJ_26"
-         );
-         dependencies = (
-            "OBJ_28"
-         );
-         name = "XcodeCompilationDatabase";
-         productName = "XcodeCompilationDatabase";
-         productReference = "XcodeCompilationDatabase::XcodeCompilationDatabase::Product";
-         productType = "com.apple.product-type.tool";
-      };
-      "XcodeCompilationDatabase::XcodeCompilationDatabase::Product" = {
-         isa = "PBXFileReference";
-         path = "XcodeCompilationDatabase";
-         sourceTree = "BUILT_PRODUCTS_DIR";
-      };
-      "XcodeCompilationDatabase::XcodeCompilationDatabaseCore" = {
-         isa = "PBXNativeTarget";
-         buildConfigurationList = "OBJ_30";
-         buildPhases = (
-            "OBJ_33",
-            "OBJ_35"
-         );
-         dependencies = (
-         );
-         name = "XcodeCompilationDatabaseCore";
-         productName = "XcodeCompilationDatabaseCore";
-         productReference = "XcodeCompilationDatabase::XcodeCompilationDatabaseCore::Product";
-         productType = "com.apple.product-type.framework";
-      };
-      "XcodeCompilationDatabase::XcodeCompilationDatabaseCore::Product" = {
-         isa = "PBXFileReference";
-         path = "XcodeCompilationDatabaseCore.framework";
-         sourceTree = "BUILT_PRODUCTS_DIR";
-      };
-      "XcodeCompilationDatabase::XcodeCompilationDatabasePackageTests::ProductTarget" = {
-         isa = "PBXAggregateTarget";
-         buildConfigurationList = "OBJ_43";
-         buildPhases = (
-         );
-         dependencies = (
-            "OBJ_46"
-         );
-         name = "XcodeCompilationDatabasePackageTests";
-         productName = "XcodeCompilationDatabasePackageTests";
-      };
-      "XcodeCompilationDatabase::XcodeCompilationDatabaseTests" = {
-         isa = "PBXNativeTarget";
-         buildConfigurationList = "OBJ_48";
-         buildPhases = (
-            "OBJ_51",
-            "OBJ_53"
-         );
-         dependencies = (
-            "OBJ_55"
-         );
-         name = "XcodeCompilationDatabaseTests";
-         productName = "XcodeCompilationDatabaseTests";
-         productReference = "XcodeCompilationDatabase::XcodeCompilationDatabaseTests::Product";
-         productType = "com.apple.product-type.bundle.unit-test";
-      };
-      "XcodeCompilationDatabase::XcodeCompilationDatabaseTests::Product" = {
-         isa = "PBXFileReference";
-         path = "XcodeCompilationDatabaseTests.xctest";
-         sourceTree = "BUILT_PRODUCTS_DIR";
-      };
-   };
-   rootObject = "OBJ_1";
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		"XcodeCompilationDatabase::XcodeCompilationDatabasePackageTests::ProductTarget" /* XcodeCompilationDatabasePackageTests */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = OBJ_43 /* Build configuration list for PBXAggregateTarget "XcodeCompilationDatabasePackageTests" */;
+			buildPhases = (
+			);
+			dependencies = (
+				OBJ_46 /* PBXTargetDependency */,
+			);
+			name = XcodeCompilationDatabasePackageTests;
+			productName = XcodeCompilationDatabasePackageTests;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		982E6C6B226AB3D300975FCA /* CommandDesc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982E6C6A226AB3D300975FCA /* CommandDesc.swift */; };
+		982E6C6D226ABFCD00975FCA /* Bash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982E6C6C226ABFCD00975FCA /* Bash.swift */; };
+		9867CB4E2269B52700632C57 /* SplitLogFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9867CB4D2269B52700632C57 /* SplitLogFile.swift */; };
+		OBJ_25 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* main.swift */; };
+		OBJ_27 /* XcodeCompilationDatabaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "XcodeCompilationDatabase::XcodeCompilationDatabaseCore::Product" /* XcodeCompilationDatabaseCore.framework */; };
+		OBJ_34 /* XcodeCompilationDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* XcodeCompilationDatabase.swift */; };
+		OBJ_41 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
+		OBJ_52 /* LogParsingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* LogParsingTests.swift */; };
+		OBJ_54 /* XcodeCompilationDatabaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "XcodeCompilationDatabase::XcodeCompilationDatabaseCore::Product" /* XcodeCompilationDatabaseCore.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9867CB4A2269B04900632C57 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "XcodeCompilationDatabase::XcodeCompilationDatabaseCore";
+			remoteInfo = XcodeCompilationDatabaseCore;
+		};
+		9867CB4B2269B04900632C57 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "XcodeCompilationDatabase::XcodeCompilationDatabaseCore";
+			remoteInfo = XcodeCompilationDatabaseCore;
+		};
+		9867CB4C2269B04A00632C57 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "XcodeCompilationDatabase::XcodeCompilationDatabaseTests";
+			remoteInfo = XcodeCompilationDatabaseTests;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		982E6C6A226AB3D300975FCA /* CommandDesc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandDesc.swift; sourceTree = "<group>"; };
+		982E6C6C226ABFCD00975FCA /* Bash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bash.swift; sourceTree = "<group>"; };
+		9867CB4D2269B52700632C57 /* SplitLogFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitLogFile.swift; sourceTree = "<group>"; };
+		OBJ_11 /* XcodeCompilationDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeCompilationDatabase.swift; sourceTree = "<group>"; };
+		OBJ_14 /* LogParsingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogParsingTests.swift; sourceTree = "<group>"; };
+		OBJ_15 /* ExampleLogs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ExampleLogs; sourceTree = SOURCE_ROOT; };
+		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		OBJ_9 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		"XcodeCompilationDatabase::XcodeCompilationDatabase::Product" /* XcodeCompilationDatabase */ = {isa = PBXFileReference; lastKnownFileType = text; path = XcodeCompilationDatabase; sourceTree = BUILT_PRODUCTS_DIR; };
+		"XcodeCompilationDatabase::XcodeCompilationDatabaseCore::Product" /* XcodeCompilationDatabaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = XcodeCompilationDatabaseCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"XcodeCompilationDatabase::XcodeCompilationDatabaseTests::Product" /* XcodeCompilationDatabaseTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = XcodeCompilationDatabaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		OBJ_26 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_27 /* XcodeCompilationDatabaseCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_35 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_53 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_54 /* XcodeCompilationDatabaseCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		OBJ_10 /* XcodeCompilationDatabaseCore */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_11 /* XcodeCompilationDatabase.swift */,
+				9867CB4D2269B52700632C57 /* SplitLogFile.swift */,
+				982E6C6A226AB3D300975FCA /* CommandDesc.swift */,
+				982E6C6C226ABFCD00975FCA /* Bash.swift */,
+			);
+			name = XcodeCompilationDatabaseCore;
+			path = Sources/XcodeCompilationDatabaseCore;
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_12 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_13 /* XcodeCompilationDatabaseTests */,
+			);
+			name = Tests;
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_13 /* XcodeCompilationDatabaseTests */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_14 /* LogParsingTests.swift */,
+			);
+			name = XcodeCompilationDatabaseTests;
+			path = Tests/XcodeCompilationDatabaseTests;
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_16 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				"XcodeCompilationDatabase::XcodeCompilationDatabaseTests::Product" /* XcodeCompilationDatabaseTests.xctest */,
+				"XcodeCompilationDatabase::XcodeCompilationDatabaseCore::Product" /* XcodeCompilationDatabaseCore.framework */,
+				"XcodeCompilationDatabase::XcodeCompilationDatabase::Product" /* XcodeCompilationDatabase */,
+			);
+			name = Products;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		OBJ_5 = {
+			isa = PBXGroup;
+			children = (
+				OBJ_6 /* Package.swift */,
+				OBJ_7 /* Sources */,
+				OBJ_12 /* Tests */,
+				OBJ_15 /* ExampleLogs */,
+				OBJ_16 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		OBJ_7 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_8 /* XcodeCompilationDatabase */,
+				OBJ_10 /* XcodeCompilationDatabaseCore */,
+			);
+			name = Sources;
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_8 /* XcodeCompilationDatabase */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_9 /* main.swift */,
+			);
+			name = XcodeCompilationDatabase;
+			path = Sources/XcodeCompilationDatabase;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		"XcodeCompilationDatabase::SwiftPMPackageDescription" /* XcodeCompilationDatabasePackageDescription */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_37 /* Build configuration list for PBXNativeTarget "XcodeCompilationDatabasePackageDescription" */;
+			buildPhases = (
+				OBJ_40 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = XcodeCompilationDatabasePackageDescription;
+			productName = XcodeCompilationDatabasePackageDescription;
+			productType = "com.apple.product-type.framework";
+		};
+		"XcodeCompilationDatabase::XcodeCompilationDatabase" /* XcodeCompilationDatabase */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_21 /* Build configuration list for PBXNativeTarget "XcodeCompilationDatabase" */;
+			buildPhases = (
+				OBJ_24 /* Sources */,
+				OBJ_26 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				OBJ_28 /* PBXTargetDependency */,
+			);
+			name = XcodeCompilationDatabase;
+			productName = XcodeCompilationDatabase;
+			productReference = "XcodeCompilationDatabase::XcodeCompilationDatabase::Product" /* XcodeCompilationDatabase */;
+			productType = "com.apple.product-type.tool";
+		};
+		"XcodeCompilationDatabase::XcodeCompilationDatabaseCore" /* XcodeCompilationDatabaseCore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_30 /* Build configuration list for PBXNativeTarget "XcodeCompilationDatabaseCore" */;
+			buildPhases = (
+				OBJ_33 /* Sources */,
+				OBJ_35 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = XcodeCompilationDatabaseCore;
+			productName = XcodeCompilationDatabaseCore;
+			productReference = "XcodeCompilationDatabase::XcodeCompilationDatabaseCore::Product" /* XcodeCompilationDatabaseCore.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		"XcodeCompilationDatabase::XcodeCompilationDatabaseTests" /* XcodeCompilationDatabaseTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_48 /* Build configuration list for PBXNativeTarget "XcodeCompilationDatabaseTests" */;
+			buildPhases = (
+				OBJ_51 /* Sources */,
+				OBJ_53 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				OBJ_55 /* PBXTargetDependency */,
+			);
+			name = XcodeCompilationDatabaseTests;
+			productName = XcodeCompilationDatabaseTests;
+			productReference = "XcodeCompilationDatabase::XcodeCompilationDatabaseTests::Product" /* XcodeCompilationDatabaseTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		OBJ_1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 9999;
+			};
+			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "XcodeCompilationDatabase" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				en,
+			);
+			mainGroup = OBJ_5;
+			productRefGroup = OBJ_16 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				"XcodeCompilationDatabase::XcodeCompilationDatabase" /* XcodeCompilationDatabase */,
+				"XcodeCompilationDatabase::XcodeCompilationDatabaseCore" /* XcodeCompilationDatabaseCore */,
+				"XcodeCompilationDatabase::SwiftPMPackageDescription" /* XcodeCompilationDatabasePackageDescription */,
+				"XcodeCompilationDatabase::XcodeCompilationDatabasePackageTests::ProductTarget" /* XcodeCompilationDatabasePackageTests */,
+				"XcodeCompilationDatabase::XcodeCompilationDatabaseTests" /* XcodeCompilationDatabaseTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		OBJ_24 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_25 /* main.swift in Sources */,
+				9867CB4E2269B52700632C57 /* SplitLogFile.swift in Sources */,
+				982E6C6B226AB3D300975FCA /* CommandDesc.swift in Sources */,
+				982E6C6D226ABFCD00975FCA /* Bash.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_33 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_34 /* XcodeCompilationDatabase.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_40 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_41 /* Package.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_51 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_52 /* LogParsingTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		OBJ_28 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "XcodeCompilationDatabase::XcodeCompilationDatabaseCore" /* XcodeCompilationDatabaseCore */;
+			targetProxy = 9867CB4A2269B04900632C57 /* PBXContainerItemProxy */;
+		};
+		OBJ_46 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "XcodeCompilationDatabase::XcodeCompilationDatabaseTests" /* XcodeCompilationDatabaseTests */;
+			targetProxy = 9867CB4C2269B04A00632C57 /* PBXContainerItemProxy */;
+		};
+		OBJ_55 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "XcodeCompilationDatabase::XcodeCompilationDatabaseCore" /* XcodeCompilationDatabaseCore */;
+			targetProxy = 9867CB4B2269B04900632C57 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		OBJ_22 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = XcodeCompilationDatabase.xcodeproj/XcodeCompilationDatabase_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx @executable_path";
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
+				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = XcodeCompilationDatabase;
+			};
+			name = Debug;
+		};
+		OBJ_23 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = XcodeCompilationDatabase.xcodeproj/XcodeCompilationDatabase_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx @executable_path";
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
+				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = XcodeCompilationDatabase;
+			};
+			name = Release;
+		};
+		OBJ_3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-DXcode";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "SWIFT_PACKAGE DEBUG";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				USE_HEADERMAP = NO;
+			};
+			name = Debug;
+		};
+		OBJ_31 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = XcodeCompilationDatabase.xcodeproj/XcodeCompilationDatabaseCore_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = XcodeCompilationDatabaseCore;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = XcodeCompilationDatabaseCore;
+			};
+			name = Debug;
+		};
+		OBJ_32 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = XcodeCompilationDatabase.xcodeproj/XcodeCompilationDatabaseCore_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = XcodeCompilationDatabaseCore;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = XcodeCompilationDatabaseCore;
+			};
+			name = Release;
+		};
+		OBJ_38 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LD = /usr/bin/true;
+				OTHER_SWIFT_FLAGS = "-swift-version 4 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		OBJ_39 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LD = /usr/bin/true;
+				OTHER_SWIFT_FLAGS = "-swift-version 4 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		OBJ_4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_OPTIMIZATION_LEVEL = s;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				OTHER_SWIFT_FLAGS = "-DXcode";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = SWIFT_PACKAGE;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				USE_HEADERMAP = NO;
+			};
+			name = Release;
+		};
+		OBJ_44 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		OBJ_45 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		OBJ_49 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = XcodeCompilationDatabase.xcodeproj/XcodeCompilationDatabaseTests_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks @loader_path/Frameworks";
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = XcodeCompilationDatabaseTests;
+			};
+			name = Debug;
+		};
+		OBJ_50 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = XcodeCompilationDatabase.xcodeproj/XcodeCompilationDatabaseTests_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks @loader_path/Frameworks";
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = XcodeCompilationDatabaseTests;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		OBJ_2 /* Build configuration list for PBXProject "XcodeCompilationDatabase" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_3 /* Debug */,
+				OBJ_4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		OBJ_21 /* Build configuration list for PBXNativeTarget "XcodeCompilationDatabase" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_22 /* Debug */,
+				OBJ_23 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		OBJ_30 /* Build configuration list for PBXNativeTarget "XcodeCompilationDatabaseCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_31 /* Debug */,
+				OBJ_32 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		OBJ_37 /* Build configuration list for PBXNativeTarget "XcodeCompilationDatabasePackageDescription" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_38 /* Debug */,
+				OBJ_39 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		OBJ_43 /* Build configuration list for PBXAggregateTarget "XcodeCompilationDatabasePackageTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_44 /* Debug */,
+				OBJ_45 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		OBJ_48 /* Build configuration list for PBXNativeTarget "XcodeCompilationDatabaseTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_49 /* Debug */,
+				OBJ_50 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = OBJ_1 /* Project object */;
 }

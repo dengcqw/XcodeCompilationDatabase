@@ -20,9 +20,11 @@ let logPath = CommandLine.arguments[1]
 
 do {
     let log = try String(contentsOf: URL(fileURLWithPath: logPath), encoding: .utf8)
-    let parsed = parse(log: log)
-    let entries = getEntries(parsed: parsed)
-    try writeEntries(entries: entries, to: outPath)
+    splitLog(log)
+    
+//    let parsed = parse(log: log)
+//    let entries = getEntries(parsed: parsed)
+//    try writeEntries(entries: entries, to: outPath)
 } catch {
     fatalError(error.localizedDescription)
 }
