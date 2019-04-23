@@ -1,13 +1,30 @@
 import Foundation
 
 protocol CommandExecuting {
+    func execute(script: String) -> String?
     func execute(commandName: String) -> String?
     func execute(commandName: String, arguments: [String]) -> String?
 }
 
 final class Bash: CommandExecuting {
 
+    func tempFilePath() -> String? {
+        let temporaryDirectoryURL = URL(string: NSTemporaryDirectory())
+        let temporaryFileURL = temporaryDirectoryURL?.appendingPathComponent(UUID().uuidString)
+        return temporaryFileURL?.absoluteString
+    }
+
     // MARK: - CommandExecuting
+    
+    func execute(script: String) -> String? {
+        guard let scriptFilePath = tempFilePath() else { return nil }
+        let data = script.data(using: .utf8)
+        if FileManager.default.createFile(atPath: scriptFilePath, contents: data, attributes: nil) {
+            return execute(command: "/bin/bash", arguments: [scriptFilePath])
+        } else {
+            return nil
+        }
+    }
 
     func execute(commandName: String) -> String? {
         return execute(commandName: commandName, arguments: [])

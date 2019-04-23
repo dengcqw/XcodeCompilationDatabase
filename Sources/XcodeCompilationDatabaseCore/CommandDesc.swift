@@ -24,8 +24,12 @@ protocol CommandDescription: CommandExecution {
 extension CommandDescription {
     func execute(done: (String?)->Void) {
         let bash: CommandExecuting = Bash()
-        let output = bash.execute(commandName: content)
-        done(output)
+        let output = bash.execute(script: content)
+        if output == "" {
+            done(nil)
+        } else {
+            done(output)
+        }
     }
 }
 
@@ -48,6 +52,7 @@ func createCommand(commandLines: [String]) -> CommandReference? {
     guard let desc = commandLines.first, let commandIndex = desc.firstIndex(of: " ") else { return nil }
     let content = commandLines.dropFirst().joined(separator: ";")
     let command = desc.prefix(upTo: commandIndex)
+    print(command)
     switch command {
     case "CompileSwiftSources":
         return CommandCompileSwiftSources(desc: desc, content: content)
@@ -79,12 +84,14 @@ struct Command: CommandDescription {
 
 struct CommandCompileC: CommandReference {
     init?(desc: String, content: String) {
-        let arr = desc.split(separator: " ")
+        let arr = desc.split(separator: " ") // TODO: filepath may contain blank char
         guard arr.count == 10 else { return nil }
-        self.command = Command.init(target: arr.last!.replacingOccurrences(of: ")", with: ""), name: String(arr[0]), content: content)
-        self.lang = String(arr[5])
+        let target = arr.last!.replacingOccurrences(of: ")", with: "")
+        self.command = Command.init(target: target, name: String(arr[0]), content: content)
+        self.outputPath = String(arr[1])
+        self.inputPath = String(arr[2])
         self.arch = String(arr[4])
-        self.compileFilePath = String(arr[2])
+        self.lang = String(arr[5])
     }
 
     var command: Command
@@ -93,12 +100,12 @@ struct CommandCompileC: CommandReference {
         command.execute(done: done)
     }
 
-    /// program language name
-    var lang: String
+    var outputPath: String
+    var inputPath: String
     /// cpu arch
     var arch: String
-    /// file's full path
-    var compileFilePath: String
+    /// program language name
+    var lang: String
 
     static func == (lhs: CommandCompileC, rhs: CommandCompileC) -> Bool {
         return
@@ -111,7 +118,9 @@ struct CommandCompileSwiftSources: CommandReference {
     init?(desc: String, content: String) {
         let arr = desc.split(separator: " ")
         guard arr.count == 7 else { return nil }
-        self.command = Command.init(target: arr.last!.replacingOccurrences(of: ")", with: ""), name: String(arr[0]), content: content)
+        let target = arr.last!.replacingOccurrences(of: ")", with: "")
+        self.command = Command.init(target: target, name: String(arr[0]), content: content)
+        self.arch = String(arr[2])
     }
 
     func execute(done: (String?) -> Void) {
@@ -119,13 +128,17 @@ struct CommandCompileSwiftSources: CommandReference {
     }
 
     var command: Command
+    var arch: String
 }
 
 struct CommandCompileSwift: CommandReference {
     init?(desc: String, content: String) {
         let arr = desc.split(separator: " ")
         guard arr.count == 7 else { return nil }
-        self.command = Command.init(target: arr.last!.replacingOccurrences(of: ")", with: ""), name: String(arr[0]), content: content)
+        let target = arr.last!.replacingOccurrences(of: ")", with: "")
+        self.command = Command.init(target: target, name: String(arr[0]), content: content)
+        self.arch = String(arr[2])
+        self.inputPath = String(arr[3])
     }
 
     func execute(done: (String?) -> Void) {
@@ -133,21 +146,34 @@ struct CommandCompileSwift: CommandReference {
     }
 
     var command: Command
+    var arch: String
+    var inputPath: String
 }
 
 struct CommandMergeSwiftModule: CommandReference {
-    init(desc: String, content: String) {
+    var command: Command
+    var arch: String
+
+    func execute(done: (String?) -> Void) {
+    }
+
+    init?(desc: String, content: String) {
         let arr = desc.split(separator: " ")
-        guard arr.count > 2 else { return nil }
-        self.command = Command.init(target: arr[10].replacingOccurrences(of: ")", with: ""), name: String(arr[0]), content: content)
+        guard arr.count == 6 else { return nil }
+        let target = arr.last!.replacingOccurrences(of: ")", with: "")
+        self.command = Command.init(target: target, name: String(arr[0]), content: content)
+        self.arch = String(arr[2])
     }
 }
 
 struct CommandLd: CommandReference {
-    init(desc: String, content: String) {
+    init?(desc: String, content: String) {
         let arr = desc.split(separator: " ")
-        guard arr.count == 10 else { return nil }
-        self.command = Command.init(target: arr[10].replacingOccurrences(of: ")", with: ""), name: String(arr[0]), content: content)
+        guard arr.count == 7 else { return nil }
+        let target = arr.last!.replacingOccurrences(of: ")", with: "")
+        self.command = Command.init(target: target, name: String(arr[0]), content: content)
+        self.outputPath = String(arr[1])
+        self.arch = String(arr[3])
     }
 
     func execute(done: (String?) -> Void) {
@@ -155,13 +181,17 @@ struct CommandLd: CommandReference {
     }
 
     var command: Command
+    var outputPath: String
+    var arch: String
 }
 
 struct CommandCompileXIB: CommandReference {
-    init(desc: String, content: String) {
+    init?(desc: String, content: String) {
         let arr = desc.split(separator: " ")
-        guard arr.count == 10 else { return nil }
-        self.command = Command.init(target: arr[10].replacingOccurrences(of: ")", with: ""), name: String(arr[0]), content: content)
+        guard arr.count == 5 else { return nil }
+        let target = arr.last!.replacingOccurrences(of: ")", with: "")
+        self.command = Command.init(target: target, name: String(arr[0]), content: content)
+        self.xibFilePath = String(arr[1])
     }
 
     func execute(done: (String?) -> Void) {
@@ -174,10 +204,13 @@ struct CommandCompileXIB: CommandReference {
 }
 
 struct CommandCopyPNGFile: CommandReference {
-    init(desc: String, content: String) {
+    init?(desc: String, content: String) {
         let arr = desc.split(separator: " ")
         guard arr.count == 10 else { return nil }
-        self.command = Command.init(target: arr[10].replacingOccurrences(of: ")", with: ""), name: String(arr[0]), content: content)
+        let target = arr.last!.replacingOccurrences(of: ")", with: "")
+        self.command = Command.init(target: target, name: String(arr[0]), content: content)
+        self.outputPath = String(arr[1])
+        self.inputPath = String(arr[2])
     }
 
     func execute(done: (String?) -> Void) {
@@ -186,14 +219,17 @@ struct CommandCopyPNGFile: CommandReference {
 
     var command: Command
 
-    var copyFilePath: String
+    var outputPath: String
+    var inputPath: String
 }
 
 struct CommandCodeSign: CommandReference {
-    init(desc: String, content: String) {
+    init?(desc: String, content: String) {
         let arr = desc.split(separator: " ")
-        guard arr.count == 10 else { return nil }
-        self.command = Command.init(target: arr[10].replacingOccurrences(of: ")", with: ""), name: String(arr[0]), content: content)
+        guard arr.count == 5 else { return nil }
+        let target = arr.last!.replacingOccurrences(of: ")", with: "")
+        self.command = Command.init(target: target, name: String(arr[0]), content: content)
+        self.outputPath = String(arr[1])
     }
 
     func execute(done: (String?) -> Void) {
@@ -201,4 +237,5 @@ struct CommandCodeSign: CommandReference {
     }
 
     var command: Command
+    var outputPath: String
 }
