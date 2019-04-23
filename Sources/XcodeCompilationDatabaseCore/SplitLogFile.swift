@@ -8,7 +8,7 @@
 import Foundation
 
 func splitLog(_ log: String) {
-    var commands: [String: [CommandReference]] = [:]
+    var commands: [String: [Command]] = [:]
     let lines = log.split { (char) -> Bool in
         return char == "\n" || char == "\r"
     }
@@ -36,20 +36,18 @@ func splitLog(_ log: String) {
         }
     }
     print(NSTemporaryDirectory())
-//    commands.forEach { (ref) in
-//        ref.execute(done: { (err) in
-//            if let err = err {
-//                print("run cmd [\(ref.command.name)] err: \(err)")
-//            }
-//        })
-//    }
 }
 
-func addCommand(_ commands: inout [String: [CommandReference]], _ ref: CommandReference) {
-    if commands[ref.command.target] == nil {
-        commands[ref.command.target] = []
+func addCommand(_ commands: inout [String: [Command]], _ command: Command) {
+    var sameTargetCommands = commands[command.target] ?? []
+    
+    for exist in sameTargetCommands {
+        if exist.equal(to: command) {
+            return
+        }
     }
-    commands[ref.command.target]!.append(ref)
+    sameTargetCommands.append(command)
+    commands[command.target] = sameTargetCommands
 }
 
 func matches(for regex: String, in text: String) -> [String] {

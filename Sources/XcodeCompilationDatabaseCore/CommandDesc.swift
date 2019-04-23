@@ -7,50 +7,20 @@
 
 import Foundation
 
-protocol CommandExecution {
-    /// run the command with output closure
-    func execute(done: (String?)->Void)
-}
-
-protocol CommandDescription: CommandExecution {
+protocol CommandDescription {
     /// project target
     var target: String { get set }
     /// command name
     var name: String { get set }
     /// command content
-    var content: String { get set }
+    var content: [String] { get set }
 }
 
-extension CommandDescription {
-    func execute(done: (String?)->Void) {
-        let bash: CommandExecuting = Bash()
-        let output = bash.execute(script: content)
-        if output == "" {
-            done(nil)
-        } else {
-            done(output)
-        }
-    }
-}
 
-extension CommandDescription {
-    static func == (lhs: Self, rhs: Self) -> Bool {
-        return
-            lhs.target == rhs.target &&
-            lhs.name   == rhs.name
-    }
-}
-
-/// expose command description as a variable
-protocol CommandReference: CommandExecution {
-    var command: Command { get }
-    init?(desc: String, content: String)
-}
-
-func createCommand(commandLines: [String]) -> CommandReference? {
+func createCommand(commandLines: [String]) -> Command? {
     guard commandLines.count > 1 else { return nil }
     guard let desc = commandLines.first, let commandIndex = desc.firstIndex(of: " ") else { return nil }
-    let content = commandLines.dropFirst().joined(separator: ";")
+    let content = Array(commandLines.dropFirst())
     let command = desc.prefix(upTo: commandIndex)
     print(command)
     switch command {
@@ -76,166 +46,208 @@ func createCommand(commandLines: [String]) -> CommandReference? {
 }
 
 /// entity to store command description
-struct Command: CommandDescription {
+class Command: CommandDescription {
     var target: String
     var name: String
-    var content: String
+    var content: [String]
+
+    init(target: String, name: String, content: [String]) {
+        self.target = target
+        self.name = name
+        self.content = content
+    }
+
+    func execute(params: [String], done: (String?)->Void) {
+        let bash: CommandExecuting = Bash()
+        let output = bash.execute(script: content.joined(separator: ";"))
+        if output == "" {
+            done(nil)
+        } else {
+            done(output)
+        }
+    }
+
+    func equal(to: Command) -> Bool {
+        return
+            target == to.target &&
+            name   == to.name
+    }
 }
 
-struct CommandCompileC: CommandReference {
-    init?(desc: String, content: String) {
+class CommandCompileC: Command {
+    required init?(desc: String, content: [String]) {
         let arr = desc.split(separator: " ") // TODO: filepath may contain blank char
         guard arr.count == 10 else { return nil }
-        let target = arr.last!.replacingOccurrences(of: ")", with: "")
-        self.command = Command.init(target: target, name: String(arr[0]), content: content)
         self.outputPath = String(arr[1])
         self.inputPath = String(arr[2])
         self.arch = String(arr[4])
         self.lang = String(arr[5])
+        let _target = arr.last!.replacingOccurrences(of: ")", with: "")
+        super.init(target: _target, name: String(arr[0]), content: content)
     }
-
-    var command: Command
-
-    func execute(done: (String?) -> Void) {
-        command.execute(done: done)
+ 
+    override func execute(params: [String], done: (String?) -> Void) {
+        super.execute(params: params, done: done)
     }
 
     var outputPath: String
     var inputPath: String
-    /// cpu arch
     var arch: String
-    /// program language name
     var lang: String
 
-    static func == (lhs: CommandCompileC, rhs: CommandCompileC) -> Bool {
-        return
-            lhs.command == rhs.command &&
-            lhs.lang == rhs.lang
+    override func equal(to: Command) -> Bool {
+        if let to = to as? CommandCompileC {
+            return arch == to.arch &&
+                lang == to.lang &&
+                super.equal(to: to)
+        }
+        return false
     }
 }
 
-struct CommandCompileSwiftSources: CommandReference {
-    init?(desc: String, content: String) {
+class CommandCompileSwiftSources: Command {
+    required init?(desc: String, content: [String]) {
         let arr = desc.split(separator: " ")
         guard arr.count == 7 else { return nil }
-        let target = arr.last!.replacingOccurrences(of: ")", with: "")
-        self.command = Command.init(target: target, name: String(arr[0]), content: content)
         self.arch = String(arr[2])
+        let _target = arr.last!.replacingOccurrences(of: ")", with: "")
+        super.init(target: _target, name: String(arr[0]), content: content)
     }
 
-    func execute(done: (String?) -> Void) {
-        command.execute(done: done)
+    override func execute(params: [String], done: (String?) -> Void) {
+        super.execute(params: params, done: done)
     }
 
-    var command: Command
     var arch: String
+
+    override func equal(to: Command) -> Bool {
+        if let to = to as? CommandCompileC {
+            return arch == to.arch &&
+                super.equal(to: to)
+        }
+        return false
+    }
 }
 
-struct CommandCompileSwift: CommandReference {
-    init?(desc: String, content: String) {
+class CommandCompileSwift: Command {
+    required init?(desc: String, content: [String]) {
         let arr = desc.split(separator: " ")
         guard arr.count == 7 else { return nil }
-        let target = arr.last!.replacingOccurrences(of: ")", with: "")
-        self.command = Command.init(target: target, name: String(arr[0]), content: content)
         self.arch = String(arr[2])
         self.inputPath = String(arr[3])
+        let _target = arr.last!.replacingOccurrences(of: ")", with: "")
+        super.init(target: _target, name: String(arr[0]), content: content)
     }
 
-    func execute(done: (String?) -> Void) {
-        command.execute(done: done)
+    override func execute(params: [String], done: (String?) -> Void) {
+        super.execute(params: params, done: done)
     }
 
-    var command: Command
     var arch: String
     var inputPath: String
+
+    override func equal(to: Command) -> Bool {
+        if let to = to as? CommandCompileC {
+            return arch == to.arch &&
+                super.equal(to: to)
+        }
+        return false
+    }
 }
 
-struct CommandMergeSwiftModule: CommandReference {
-    var command: Command
+class CommandMergeSwiftModule: Command {
     var arch: String
 
-    func execute(done: (String?) -> Void) {
+    override func execute(params: [String], done: (String?) -> Void) {
     }
 
-    init?(desc: String, content: String) {
+    init?(desc: String, content: [String]) {
         let arr = desc.split(separator: " ")
         guard arr.count == 6 else { return nil }
-        let target = arr.last!.replacingOccurrences(of: ")", with: "")
-        self.command = Command.init(target: target, name: String(arr[0]), content: content)
         self.arch = String(arr[2])
+        let _target = arr.last!.replacingOccurrences(of: ")", with: "")
+        super.init(target: _target, name: String(arr[0]), content: content)
+    }
+
+    override func equal(to: Command) -> Bool {
+        if let to = to as? CommandCompileC {
+            return arch == to.arch &&
+                super.equal(to: to)
+        }
+        return false
     }
 }
 
-struct CommandLd: CommandReference {
-    init?(desc: String, content: String) {
+class CommandLd: Command {
+    init?(desc: String, content: [String]) {
         let arr = desc.split(separator: " ")
         guard arr.count == 7 else { return nil }
-        let target = arr.last!.replacingOccurrences(of: ")", with: "")
-        self.command = Command.init(target: target, name: String(arr[0]), content: content)
         self.outputPath = String(arr[1])
         self.arch = String(arr[3])
+        let _target = arr.last!.replacingOccurrences(of: ")", with: "")
+        super.init(target: _target, name: String(arr[0]), content: content)
     }
 
-    func execute(done: (String?) -> Void) {
-        command.execute(done: done)
+    override func execute(params: [String], done: (String?) -> Void) {
+        super.execute(params: params, done: done)
     }
-
-    var command: Command
     var outputPath: String
     var arch: String
+
+    override func equal(to: Command) -> Bool {
+        if let to = to as? CommandCompileC {
+            return arch == to.arch &&
+                super.equal(to: to)
+        }
+        return false
+    }
 }
 
-struct CommandCompileXIB: CommandReference {
-    init?(desc: String, content: String) {
+class CommandCompileXIB: Command {
+    required init?(desc: String, content: [String]) {
         let arr = desc.split(separator: " ")
         guard arr.count == 5 else { return nil }
-        let target = arr.last!.replacingOccurrences(of: ")", with: "")
-        self.command = Command.init(target: target, name: String(arr[0]), content: content)
         self.xibFilePath = String(arr[1])
+        let _target = arr.last!.replacingOccurrences(of: ")", with: "")
+        super.init(target: _target, name: String(arr[0]), content: content)
     }
 
-    func execute(done: (String?) -> Void) {
-        command.execute(done: done)
+    override func execute(params: [String], done: (String?) -> Void) {
+        super.execute(params: params, done: done)
     }
-
-    var command: Command
 
     var xibFilePath: String
 }
 
-struct CommandCopyPNGFile: CommandReference {
-    init?(desc: String, content: String) {
+class CommandCopyPNGFile: Command {
+    required init?(desc: String, content: [String]) {
         let arr = desc.split(separator: " ")
         guard arr.count == 10 else { return nil }
-        let target = arr.last!.replacingOccurrences(of: ")", with: "")
-        self.command = Command.init(target: target, name: String(arr[0]), content: content)
         self.outputPath = String(arr[1])
         self.inputPath = String(arr[2])
+        let _target = arr.last!.replacingOccurrences(of: ")", with: "")
+        super.init(target: _target, name: String(arr[0]), content: content)
     }
 
-    func execute(done: (String?) -> Void) {
-        command.execute(done: done)
+    override func execute(params: [String], done: (String?) -> Void) {
+        super.execute(params: params, done: done)
     }
-
-    var command: Command
 
     var outputPath: String
     var inputPath: String
 }
 
-struct CommandCodeSign: CommandReference {
-    init?(desc: String, content: String) {
+class CommandCodeSign: Command {
+    required init?(desc: String, content: [String]) {
         let arr = desc.split(separator: " ")
         guard arr.count == 5 else { return nil }
-        let target = arr.last!.replacingOccurrences(of: ")", with: "")
-        self.command = Command.init(target: target, name: String(arr[0]), content: content)
         self.outputPath = String(arr[1])
+        let _target = arr.last!.replacingOccurrences(of: ")", with: "")
+        super.init(target: _target, name: String(arr[0]), content: content)
     }
 
-    func execute(done: (String?) -> Void) {
-        command.execute(done: done)
+    override func execute(params: [String], done: (String?) -> Void) {
+        super.execute(params: params, done: done)
     }
-
-    var command: Command
     var outputPath: String
 }
