@@ -26,7 +26,7 @@ func splitLog(_ log: String) {
             }
             tmpStack = [] // start new command
             tmpStack.append(text)
-        } else if text.hasPrefix("  ") {
+        } else if text.hasBlankPrefix(count: 4) {
             tmpStack.append(text)
         }
     }
@@ -62,4 +62,45 @@ func matches(for regex: String, in text: String) -> [String] {
         print("invalid regex: \(error.localizedDescription)")
         return []
     }
+}
+
+extension String {
+    func getFileNameWithoutType() -> String? {
+        guard let slashIndex = lastIndex(of: "/") else { return nil }
+        let fileName = suffix(from: self.index(after: slashIndex))
+        if let ret = fileName.split(separator: ".").first {
+            return String(ret)
+        } else {
+            return nil
+        }
+    }
+    
+    mutating func replaceCommandLineParam(withPrefix prefix: String, replaceString: String) {
+        guard let range = self.range(of: prefix) else { return }
+        var preChar: Character = Character.init("")
+        var distance: Int = 0
+        for (index, char) in self.suffix(from: range.upperBound).enumerated() {
+            if char == "-" && preChar == " " {
+                distance = index
+                break
+            } else {
+                preChar = char
+            }
+        }
+        guard distance != 0 else { return }
+        let upperBound = self.index(range.upperBound, offsetBy: distance)
+        self.replaceSubrange(range.lowerBound..<upperBound, with: replaceString)
+    }
+    
+    func hasBlankPrefix(count: Int) -> Bool {
+        var _count = 0
+        for char in self {
+            if char != " " {
+                break
+            }
+            _count = _count + 1
+        }
+        return count == _count
+    }
+
 }
