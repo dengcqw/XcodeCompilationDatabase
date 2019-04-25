@@ -8,12 +8,6 @@ protocol CommandExecuting {
 
 final class Bash: CommandExecuting {
 
-    func tempFilePath() -> String? {
-        let temporaryDirectoryURL = URL(string: NSTemporaryDirectory())
-        let temporaryFileURL = temporaryDirectoryURL?.appendingPathComponent(UUID().uuidString)
-        return temporaryFileURL?.absoluteString
-    }
-
     // MARK: - CommandExecuting
     
     func execute(script: String) -> String? {

@@ -7,9 +7,6 @@
 
 import Foundation
 
-let ClangPath = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang"
-let SwiftPath = ""
-
 protocol CommandDescription {
     /// project target
     var target: String { get set }
@@ -17,47 +14,6 @@ protocol CommandDescription {
     var name: String { get set }
     /// command content
     var content: [String] { get set }
-}
-
-extension Array where Element == String {
-    func filterCmd(_ prefix: String) -> [String] {
-        for (index, value) in self.enumerated() {
-            if value.hasPrefix(prefix) {
-                return self.dropLast(self.count - 1 - index)
-            }
-        }
-        return self
-    }
-}
-
-func createCommand(commandLines: [String]) -> Command? {
-    guard commandLines.count > 1 else { return nil }
-    guard let desc = commandLines.first, let commandIndex = desc.firstIndex(of: " ") else { return nil }
-    let content = Array(commandLines.dropFirst())
-    let command = desc.prefix(upTo: commandIndex)
-    let prefix = "    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain"
-    print(command)
-    switch command {
-    case "CompileSwiftSources":
-        return CommandCompileSwiftSources(desc: desc, content: content.filterCmd(prefix))
-    case "CompileSwift":
-        return CommandCompileSwift(desc: desc, content: content.filterCmd(prefix))
-    case "MergeSwiftModule":
-        return CommandMergeSwiftModule(desc: desc, content: content.filterCmd(prefix))
-    case "CompileC":
-        return CommandCompileC(desc: desc, content: content.filterCmd(prefix))
-    case "Ld":
-        return CommandLd(desc: desc, content: content.filterCmd(prefix))
-    case "CopyPNGFile":
-        return CommandCopyPNGFile(desc: desc, content: content)
-    case "CompileXIB":
-        return CommandCompileXIB(desc: desc, content: content)
-    case "CodeSign":
-        let prefix = "    /usr/bin/codesign"
-        return CommandCodeSign(desc: desc, content: content.filterCmd(prefix))
-    default:
-        return nil
-    }
 }
 
 /// entity to store command description
@@ -143,22 +99,54 @@ class CommandCompileC: Command {
 // 生成一个filelist，和output file list
 class CommandCompileSwiftSources: Command {
     var arch: String
+    var wholeModuleOptimization: Bool = false
 
     required init?(desc: String, content: [String]) {
         let arr = desc.split(separator: " ")
         guard arr.count == 7 else { return nil }
         self.arch = String(arr[2])
         let _target = arr.last!.replacingOccurrences(of: ")", with: "")
-        super.init(target: _target, name: String(arr[0]), content: content)
 
+        super.init(target: _target, name: String(arr[0]), content: content)
+        if var lastLine = content.last, let range = lastLine.range(of: "-whole-module-optimization") {
+            lastLine.replaceSubrange(range, with: "")
+            self.wholeModuleOptimization = true
+        }
+        if let lastLine = content.last {
+            cacheFileList(lastLine)
+        }
     }
 
     override func equal(to: Command) -> Bool {
-        if let to = to as? CommandCompileC {
+        if let to = to as? CommandCompileSwiftSources {
             return arch == to.arch &&
                 super.equal(to: to)
         }
         return false
+    }
+    
+    func getFileName() -> String {
+        return "\(target)-swiftfiles"
+    }
+    
+    func cacheFileList(_ compileCommand: String) {
+        let splited = compileCommand.split(separator: " ")
+        var fileList = ""
+        for str in splited {
+            if str.hasSuffix(".swift") {
+                fileList.append(String(str))
+                fileList.append("\n")
+            }
+        }
+        guard let workingDir = getWorkingDir() else {
+            assert(false, "working dir create err")
+            return
+        }
+        do {
+            try fileList.write(toFile: workingDir + "/\(getFileName())", atomically: true, encoding: .utf8)
+        } catch _ {
+            print("cache swift files error")
+        }
     }
 }
 
@@ -218,7 +206,7 @@ class CommandCompileSwift: Command {
     }
 
     override func equal(to: Command) -> Bool {
-        if let to = to as? CommandCompileC {
+        if let to = to as? CommandCompileSwift {
             return arch == to.arch &&
                 super.equal(to: to)
         }
@@ -228,6 +216,7 @@ class CommandCompileSwift: Command {
 
 class CommandMergeSwiftModule: Command {
     var arch: String
+    var swiftmodulePath: String?  //-o  .../TVGuor.build/Objects-normal/x86_64/TVGuor.swiftmodule
 
     init?(desc: String, content: [String]) {
         let arr = desc.split(separator: " ")
@@ -235,27 +224,49 @@ class CommandMergeSwiftModule: Command {
         self.arch = String(arr[2])
         let _target = arr.last!.replacingOccurrences(of: ")", with: "")
         super.init(target: _target, name: String(arr[0]), content: content)
+        prepare(content)
     }
 
     override func execute(params: [String], done: (String?) -> Void) {
-        guard let objfileList = params.first else { return }
-        let defines = ["ObjFileList=\(objfileList)"]
+        guard let moduleList = params.first else { return }
+        let defines = ["ModuleList=\(moduleList)"]
         super.execute(params: defines, done: done)
     }
 
     override func prepare(_ content: [String]) -> [String] {
-        guard let lastLine: String = content.last else { return []}
+        guard let lastLine: String = content.last else { return [] }
         var newLine = lastLine
-        newLine.replaceCommandLineParam(withPrefix: "-filelist", replaceString: "-filelist $ObjFileList")
-        return super.prepare(content.dropLast() + [newLine])
-    }
-
-    override func equal(to: Command) -> Bool {
-        if let to = to as? CommandCompileC {
-            return arch == to.arch &&
-                super.equal(to: to)
+        newLine.replaceCommandLineParam(withPrefix: "-filelist", replaceString: "-filelist $ModuleList")
+        
+        if let range = lastLine.rangeOfOptionContent(option: "-o", reverse: true) {
+            let modulePath = String(lastLine[range])
+            swiftmodulePath = modulePath
+            
+            if let idx = modulePath.lastIndex(of: "/") {
+                let dirPath = String(modulePath.prefix(upTo: idx))
+                let mergedModule = String(modulePath.suffix(from: modulePath.index(after: idx)))
+                assert(FileManager.default.fileExists(atPath: dirPath), "object folder not exist: \(dirPath)")
+                
+                var moduleList = ""
+                let enumerator = FileManager.default.enumerator(atPath: dirPath)
+                while let element = enumerator?.nextObject() as? String {
+                    // mergedModule in the same folder, cannot include in file list
+                    if element.hasSuffix(".swiftmodule") && !element.hasSuffix(mergedModule) {
+                        moduleList.append(element)
+                        moduleList.append("\n")
+                    }
+                }
+                if let file = tempFilePath() {
+                    print(file)
+                    do {
+                        try moduleList.write(toFile: file, atomically: true, encoding: .utf8)
+                    } catch _ {
+                        print("cache swift module list err:")
+                    }
+                }
+            }
         }
-        return false
+        return super.prepare(content.dropLast() + [newLine])
     }
 }
 
@@ -274,14 +285,6 @@ class CommandLd: Command {
     }
     var outputPath: String
     var arch: String
-
-    override func equal(to: Command) -> Bool {
-        if let to = to as? CommandCompileC {
-            return arch == to.arch &&
-                super.equal(to: to)
-        }
-        return false
-    }
 }
 
 class CommandCompileXIB: Command {

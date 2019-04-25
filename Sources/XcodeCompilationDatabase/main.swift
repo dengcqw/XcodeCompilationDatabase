@@ -16,6 +16,9 @@ guard CommandLine.arguments.count > 1 else {
     exit(0)
 }
 
+//print(getWorkingDir())
+//exit(0)
+
 let logPath = CommandLine.arguments[1]
 
 do {

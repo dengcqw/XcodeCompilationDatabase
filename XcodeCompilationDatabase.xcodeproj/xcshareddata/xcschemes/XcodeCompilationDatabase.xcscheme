@@ -64,7 +64,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "/Users/dengjinlong/Documents/8-tvguo/FastCompileScript/5-compilelog/XcodeCompilationDatabase-djl/Sources/XcodeCompilationDatabaseCore/simple.log"
+            argument = "/Users/dengjinlong/Documents/8-tvguo/FastCompileScript/5-compilelog/XcodeCompilationDatabase-djl/build.log"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
