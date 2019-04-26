@@ -1,16 +1,23 @@
 import Foundation
 
 protocol CommandExecuting {
-    func execute(script: String) -> String?
+    func execute(script: String) -> FileHandle?
     func execute(commandName: String) -> String?
     func execute(commandName: String, arguments: [String]) -> String?
+}
+
+
+func readStringSync(fileHandle: FileHandle) -> String? {
+    let data = fileHandle.readDataToEndOfFile()
+    let output = String(data: data, encoding: String.Encoding.utf8)
+    return output
 }
 
 final class Bash: CommandExecuting {
 
     // MARK: - CommandExecuting
     
-    func execute(script: String) -> String? {
+    func execute(script: String) -> FileHandle? {
         guard let scriptFilePath = tempFilePath() else { return nil }
         let data = script.data(using: .utf8)
         if FileManager.default.createFile(atPath: scriptFilePath, contents: data, attributes: nil) {
@@ -25,14 +32,16 @@ final class Bash: CommandExecuting {
     }
 
     func execute(commandName: String, arguments: [String]) -> String? {
-        guard var bashCommand = execute(command: "/bin/bash" , arguments: ["-l", "-c", "which \(commandName)"]) else { return "\(commandName) not found" }
+        let handleWhich = execute(command: "/bin/bash" , arguments: ["-l", "-c", "which \(commandName)"])
+        guard var bashCommand = readStringSync(fileHandle: handleWhich) else { return "\(commandName) not found" }
         bashCommand = bashCommand.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
-        return execute(command: bashCommand, arguments: arguments)
+        let handle = execute(command: bashCommand, arguments: arguments)
+        return readStringSync(fileHandle: handle)
     }
 
     // MARK: Private
 
-    private func execute(command: String, arguments: [String] = []) -> String? {
+    private func execute(command: String, arguments: [String] = []) -> FileHandle {
         let process = Process()
         process.launchPath = command
         process.arguments = arguments
@@ -40,10 +49,7 @@ final class Bash: CommandExecuting {
         let pipe = Pipe()
         process.standardOutput = pipe
         process.launch()
-
-        let data = pipe.fileHandleForReading.readDataToEndOfFile()
-        let output = String(data: data, encoding: String.Encoding.utf8)
-        return output
+        return pipe.fileHandleForReading
     }
 }
 

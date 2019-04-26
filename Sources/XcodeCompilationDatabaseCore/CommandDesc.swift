@@ -34,7 +34,11 @@ class Command: CommandDescription {
             self.content = prepare(content)
         }
         let bash: CommandExecuting = Bash()
-        let output = bash.execute(script: (params + content).joined(separator: ";"))
+        guard let fileHandle = bash.execute(script: (params + content).joined(separator: ";")) else {
+            done(nil)
+            return
+        }
+        let output = readStringSync(fileHandle: fileHandle)
         if output == "" {
             done(nil)
         } else {

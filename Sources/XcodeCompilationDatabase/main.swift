@@ -16,18 +16,24 @@ guard CommandLine.arguments.count > 1 else {
     exit(0)
 }
 
-//print(getWorkingDir())
-//exit(0)
-
 let logPath = CommandLine.arguments[1]
 
-do {
-//    let log = try String(contentsOf: URL(fileURLWithPath: logPath), encoding: .utf8)
-    splitLog(logPath)
-    
-//    let parsed = parse(log: log)
-//    let entries = getEntries(parsed: parsed)
-//    try writeEntries(entries: entries, to: outPath)
-} catch {
-    fatalError(error.localizedDescription)
-}
+// TODO:
+// read from log file: done
+// read from xcodebuild script: done
+// read from shell pipe
+
+
+// TODO: how to clean only one target
+let cleancmd = "xcodebuild clean -workspace TVGuor.xcworkspace -scheme TVGuor -configuration Debug -arch arm64"
+let cdcmd = "cd /Users/dengjinlong/Documents/8-tvguo/2-TVGuoiOSApp"
+// use pipe
+let buildcmd = "xcodebuild build -workspace TVGuor.xcworkspace -scheme TVGuor -configuration Debug SWIFT_COMPILATION_MODE=singlefile SWIFT_WHOLE_MODULE_OPTIMIZATION=NO -arch arm64"
+let scriptCmd = [cdcmd, cleancmd, buildcmd].joined(separator: ";")
+
+#if false
+let logSource = ScriptSource.init(shellCommand: scriptCmd)
+#else
+let logSource = FileSource.init(filePath: logPath)
+#endif
+splitLog(logSource)

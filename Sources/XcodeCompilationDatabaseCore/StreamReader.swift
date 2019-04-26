@@ -26,6 +26,15 @@ class StreamReader {
         delimPattern = delimeter.data(using: .utf8)!
     }
     
+    init?(fileHandle: FileHandle, delimeter: String = "\n", encoding: String.Encoding = .utf8, chunkSize: Int = 4096)
+    {
+        self.fileHandle = fileHandle
+        self.chunkSize = chunkSize
+        self.encoding = encoding
+        buffer = Data(capacity: chunkSize)
+        delimPattern = delimeter.data(using: .utf8)!
+    }
+    
     deinit {
         fileHandle.closeFile()
     }

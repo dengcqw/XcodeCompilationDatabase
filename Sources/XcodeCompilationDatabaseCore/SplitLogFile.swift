@@ -7,16 +7,33 @@
 
 import Foundation
 
-func splitLog(_ log: String) {
-    let pathURL = URL(fileURLWithPath: log)
-    let reader = StreamReader(url: pathURL, chunkSize: 40960)
-    
+protocol LogSource {
+    func getStreamReader() -> StreamReader?
+}
+
+struct FileSource: LogSource {
+    var filePath: String
+    func getStreamReader() -> StreamReader? {
+        let pathURL = URL(fileURLWithPath: filePath)
+        return StreamReader(url: pathURL, chunkSize: 40960)
+    }
+}
+
+struct ScriptSource: LogSource {
+    var shellCommand: String
+    func getStreamReader() -> StreamReader? {
+        if let fileHandle = Bash().execute(script: shellCommand) {
+            return StreamReader(fileHandle: fileHandle, chunkSize: 40960)
+        } else {
+            return nil
+        }
+    }
+}
+
+func splitLog(_ logSource: LogSource) {
+    let reader = logSource.getStreamReader()
     var commands: [String: [Command]] = [:]
     
-//    let lines = log.split { (char) -> Bool in
-//        return char == "\n" || char == "\r"
-//    }
-//    print("total lines \(lines.count)")
     var tmpStack: [String] = []
     
     while let line = reader?.nextLine() {
