@@ -8,13 +8,18 @@
 import Foundation
 
 func splitLog(_ log: String) {
+    let pathURL = URL(fileURLWithPath: log)
+    let reader = StreamReader(url: pathURL, chunkSize: 40960)
+    
     var commands: [String: [Command]] = [:]
-    let lines = log.split { (char) -> Bool in
-        return char == "\n" || char == "\r"
-    }
-    print("total lines \(lines.count)")
+    
+//    let lines = log.split { (char) -> Bool in
+//        return char == "\n" || char == "\r"
+//    }
+//    print("total lines \(lines.count)")
     var tmpStack: [String] = []
-    for line in lines {
+    
+    while let line = reader?.nextLine() {
         let text = String(line)
         let results = matches(for: "in target: (\\w+)", in: text)
         assert(results.count < 2)

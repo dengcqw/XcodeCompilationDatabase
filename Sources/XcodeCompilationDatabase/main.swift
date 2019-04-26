@@ -22,8 +22,8 @@ guard CommandLine.arguments.count > 1 else {
 let logPath = CommandLine.arguments[1]
 
 do {
-    let log = try String(contentsOf: URL(fileURLWithPath: logPath), encoding: .utf8)
-    splitLog(log)
+//    let log = try String(contentsOf: URL(fileURLWithPath: logPath), encoding: .utf8)
+    splitLog(logPath)
     
 //    let parsed = parse(log: log)
 //    let entries = getEntries(parsed: parsed)
