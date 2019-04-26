@@ -26,7 +26,7 @@ class Command: CommandDescription {
     init(target: String, name: String, content: [String]) {
         self.target = target
         self.name = name
-        self.content = content
+        self.content = prepare(content)
     }
 
     func execute(params: [String], done: (String?)->Void) {
@@ -163,7 +163,7 @@ class CommandCompileSwift: Command {
             let _target = arr.last!.replacingOccurrences(of: ")", with: "")
 
             super.init(target: _target, name: String(arr[0]), content: content)
-        } else if arr.count == 6 {
+        } else if arr.count == 6 { // this situation may be removed
             self.arch = String(arr[2])
             self.inputPath = nil
             let _target = arr.last!.replacingOccurrences(of: ")", with: "")
@@ -224,7 +224,6 @@ class CommandMergeSwiftModule: Command {
         self.arch = String(arr[2])
         let _target = arr.last!.replacingOccurrences(of: ")", with: "")
         super.init(target: _target, name: String(arr[0]), content: content)
-        prepare(content)
     }
 
     override func execute(params: [String], done: (String?) -> Void) {
