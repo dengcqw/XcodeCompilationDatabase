@@ -30,6 +30,12 @@ struct ScriptSource: LogSource {
     }
 }
 
+struct StdinSource: LogSource {
+    func getStreamReader() -> StreamReader? {
+        return StreamReader(fileHandle: FileHandle.standardInput)
+    }
+}
+
 func splitLog(_ logSource: LogSource) {
     let reader = logSource.getStreamReader()
     var commands: [String: [Command]] = [:]
@@ -57,7 +63,9 @@ func splitLog(_ logSource: LogSource) {
             addCommand(&commands, command)
         }
     }
-    print(NSTemporaryDirectory())
+    if commands.count > 0 {
+        storeCommands(Array(commands.values))
+    }
 }
 
 func addCommand(_ commands: inout [String: [Command]], _ command: Command) {
@@ -92,14 +100,14 @@ func tempFilePath() -> String? {
     return temporaryFileURL?.absoluteString
 }
 
-func getWorkingDir() -> String? {
+func getWorkingDir() -> String {
     let workingDir = FileManager.default.currentDirectoryPath + "/.FastCompile"
     if !FileManager.default.fileExists(atPath:  workingDir) {
         do {
             try FileManager.default.createDirectory(atPath: workingDir, withIntermediateDirectories: false, attributes: nil)
             return workingDir
         } catch _ {
-            return nil
+            assert(false, "create working dir fail")
         }
     } else {
         return workingDir

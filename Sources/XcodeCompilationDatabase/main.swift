@@ -1,27 +1,13 @@
 import XcodeCompilationDatabaseCore
 import Foundation
 
-/// TODO:
-/// - Allow selection of the output path and input log
-/// - Read standard input
-/// - Merge previous compile commands database
-
 let outPath = FileManager.default.currentDirectoryPath 
     + "/compile_commands.json"
 
-guard CommandLine.arguments.count > 1 else {
-    print("""
-          usage: /path/to/xcodebuild.log
-          """)
-    exit(0)
-}
-
-let logPath = CommandLine.arguments[1]
-
 // TODO:
-// read from log file: done
-// read from xcodebuild script: done
-// read from shell pipe
+// - read from log file: done
+// - read from xcodebuild script: done
+// - read from shell pipe, as read from stdin: done
 
 
 // TODO: how to clean only one target
@@ -33,7 +19,19 @@ let scriptCmd = [cdcmd, cleancmd, buildcmd].joined(separator: ";")
 
 #if false
 let logSource = ScriptSource.init(shellCommand: scriptCmd)
-#else
+#elseif true
+
+let command = restoreCommands()
+exit(0)
+guard CommandLine.arguments.count > 1 else {
+    print("""
+          usage: /path/to/xcodebuild.log
+          """)
+    exit(0)
+}
+let logPath = CommandLine.arguments[1]
 let logSource = FileSource.init(filePath: logPath)
+#else
+let logSource = StdinSource.init()
 #endif
 splitLog(logSource)

@@ -24,6 +24,7 @@
 		982E6C6B226AB3D300975FCA /* CommandDesc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982E6C6A226AB3D300975FCA /* CommandDesc.swift */; };
 		982E6C6D226ABFCD00975FCA /* Bash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982E6C6C226ABFCD00975FCA /* Bash.swift */; };
 		9867CB4E2269B52700632C57 /* SplitLogFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9867CB4D2269B52700632C57 /* SplitLogFile.swift */; };
+		987110A72273FAFC006CAA39 /* CommandStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987110A62273FAFC006CAA39 /* CommandStorage.swift */; };
 		9875C9D5227297CA008AD4CB /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9875C9D4227297CA008AD4CB /* StreamReader.swift */; };
 		OBJ_25 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* main.swift */; };
 		OBJ_27 /* XcodeCompilationDatabaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "XcodeCompilationDatabase::XcodeCompilationDatabaseCore::Product" /* XcodeCompilationDatabaseCore.framework */; };
@@ -62,6 +63,7 @@
 		982E6C6C226ABFCD00975FCA /* Bash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bash.swift; sourceTree = "<group>"; };
 		985A85BF226EE0E200F9AC68 /* simple.log */ = {isa = PBXFileReference; lastKnownFileType = text; path = simple.log; sourceTree = "<group>"; };
 		9867CB4D2269B52700632C57 /* SplitLogFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitLogFile.swift; sourceTree = "<group>"; };
+		987110A62273FAFC006CAA39 /* CommandStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandStorage.swift; sourceTree = "<group>"; };
 		9875C9D4227297CA008AD4CB /* StreamReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamReader.swift; sourceTree = "<group>"; };
 		OBJ_11 /* XcodeCompilationDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeCompilationDatabase.swift; sourceTree = "<group>"; };
 		OBJ_14 /* LogParsingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogParsingTests.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 			children = (
 				OBJ_11 /* XcodeCompilationDatabase.swift */,
 				9867CB4D2269B52700632C57 /* SplitLogFile.swift */,
+				987110A62273FAFC006CAA39 /* CommandStorage.swift */,
 				982E6C6A226AB3D300975FCA /* CommandDesc.swift */,
 				9875C9D4227297CA008AD4CB /* StreamReader.swift */,
 				985A85BF226EE0E200F9AC68 /* simple.log */,
@@ -275,6 +278,7 @@
 				9875C9D5227297CA008AD4CB /* StreamReader.swift in Sources */,
 				OBJ_25 /* main.swift in Sources */,
 				9867CB4E2269B52700632C57 /* SplitLogFile.swift in Sources */,
+				987110A72273FAFC006CAA39 /* CommandStorage.swift in Sources */,
 				982E6C6B226AB3D300975FCA /* CommandDesc.swift in Sources */,
 				982E6C6D226ABFCD00975FCA /* Bash.swift in Sources */,
 			);

@@ -17,15 +17,21 @@ protocol CommandDescription {
 }
 
 /// entity to store command description
-class Command: CommandDescription {
+class Command: NSObject, NSCoding, CommandDescription {
     var target: String
     var name: String
     var content: [String] = []
     var prepared: Bool = false
+    
+    override init() {
+        self.target = ""
+        self.name = ""
+    }
 
     init(target: String, name: String, content: [String]) {
         self.target = target
         self.name = name
+        super.init()
         self.content = prepare(content)
     }
 
@@ -56,6 +62,22 @@ class Command: CommandDescription {
             target == to.target &&
             name   == to.name
     }
+   // MARK: NSCoding
+
+    required convenience init?(coder decoder: NSCoder) {
+        guard let target = decoder.decodeObject(forKey: "target") as? String,
+            let name = decoder.decodeObject(forKey: "name") as? String,
+            let content = decoder.decodeObject(forKey: "content") as? [String]
+            else { return nil }
+
+        self.init(target: target, name: name, content: content)
+    }
+
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.target, forKey: "target")
+        aCoder.encode(self.name, forKey: "name")
+        aCoder.encode(self.content, forKey: "content")
+    }
 }
 
 class CommandCompileC: Command {
@@ -74,6 +96,35 @@ class CommandCompileC: Command {
 
         let _target = arr.last!.replacingOccurrences(of: ")", with: "")
         super.init(target: _target, name: String(arr[0]), content: content)
+    }
+    
+    override init() {
+        self.outputPath = ""
+        self.inputPath = ""
+        self.arch = ""
+        self.lang = ""
+        super.init()
+    }
+
+    required convenience init?(coder decoder: NSCoder) {
+        guard let outputPath = decoder.decodeObject(forKey: "outputPath") as? String,
+            let inputPath = decoder.decodeObject(forKey: "inputPath") as? String,
+            let arch = decoder.decodeObject(forKey: "arch") as? String,
+            let lang = decoder.decodeObject(forKey: "lang") as? String
+            else { return nil }
+        self.init()
+        self.outputPath = outputPath
+        self.inputPath = inputPath
+        self.arch = arch
+        self.lang = lang
+    }
+
+    override func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.outputPath, forKey: "outputPath")
+        aCoder.encode(self.inputPath, forKey: "inputPath")
+        aCoder.encode(self.arch, forKey: "arch")
+        aCoder.encode(self.lang, forKey: "lang")
+        super.encode(with: aCoder)
     }
 
     override func execute(params: [String], done: (String?) -> Void) {
@@ -104,6 +155,11 @@ class CommandCompileC: Command {
 class CommandCompileSwiftSources: Command {
     var arch: String
     var wholeModuleOptimization: Bool = false
+    
+    override init() {
+        arch = ""
+        super.init()
+    }
 
     required init?(desc: String, content: [String]) {
         let arr = desc.split(separator: " ")
@@ -121,6 +177,21 @@ class CommandCompileSwiftSources: Command {
         }
     }
 
+    required convenience init?(coder decoder: NSCoder) {
+        guard let arch = decoder.decodeObject(forKey: "arch") as? String,
+            let opt = decoder.decodeObject(forKey: "opt") as? Bool
+            else { return nil }
+        self.init()
+        self.arch = arch
+        self.wholeModuleOptimization = opt
+    }
+
+    override func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.arch, forKey: "arch")
+        aCoder.encode(self.wholeModuleOptimization, forKey: "opt")
+        super.encode(with: aCoder)
+    }
+
     override func equal(to: Command) -> Bool {
         if let to = to as? CommandCompileSwiftSources {
             return arch == to.arch &&
@@ -128,11 +199,11 @@ class CommandCompileSwiftSources: Command {
         }
         return false
     }
-    
+
     func getFileName() -> String {
         return "\(target)-swiftfiles"
     }
-    
+
     func cacheFileList(_ compileCommand: String) {
         let splited = compileCommand.split(separator: " ")
         var fileList = ""
@@ -142,10 +213,7 @@ class CommandCompileSwiftSources: Command {
                 fileList.append("\n")
             }
         }
-        guard let workingDir = getWorkingDir() else {
-            assert(false, "working dir create err")
-            return
-        }
+        let workingDir = getWorkingDir()
         do {
             try fileList.write(toFile: workingDir + "/\(getFileName())", atomically: true, encoding: .utf8)
         } catch _ {
@@ -158,6 +226,11 @@ class CommandCompileSwift: Command {
 
     var arch: String
     var inputPath: String?
+    
+    override init() {
+        self.arch = ""
+        super.init()
+    }
 
     required init?(desc: String, content: [String]) {
         let arr = desc.split(separator: " ")
@@ -173,7 +246,21 @@ class CommandCompileSwift: Command {
             let _target = arr.last!.replacingOccurrences(of: ")", with: "")
             super.init(target: _target, name: String(arr[0]), content: content)
         } else { return nil }
+    }
 
+    required convenience init?(coder decoder: NSCoder) {
+        guard let arch = decoder.decodeObject(forKey: "arch") as? String,
+            let inputPath = decoder.decodeObject(forKey: "inputPath") as? String
+            else { return nil }
+        self.init()
+        self.arch = arch
+        self.inputPath = inputPath
+    }
+
+    override func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.arch, forKey: "arch")
+        aCoder.encode(self.inputPath, forKey: "inputPath")
+        super.encode(with: aCoder)
     }
 
     override func execute(params: [String], done: (String?) -> Void) {
@@ -222,12 +309,31 @@ class CommandMergeSwiftModule: Command {
     var arch: String
     var swiftmodulePath: String?  //-o  .../TVGuor.build/Objects-normal/x86_64/TVGuor.swiftmodule
 
+    override init() {
+        arch = ""
+        super.init()
+    }
     init?(desc: String, content: [String]) {
         let arr = desc.split(separator: " ")
         guard arr.count == 6 else { return nil }
         self.arch = String(arr[2])
         let _target = arr.last!.replacingOccurrences(of: ")", with: "")
         super.init(target: _target, name: String(arr[0]), content: content)
+    }
+
+    required convenience init?(coder decoder: NSCoder) {
+        guard let arch = decoder.decodeObject(forKey: "arch") as? String,
+            let module = decoder.decodeObject(forKey: "module") as? String
+            else { return nil }
+        self.init()
+        self.arch = arch
+        self.swiftmodulePath = module
+    }
+
+    override func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.arch, forKey: "arch")
+        aCoder.encode(self.swiftmodulePath, forKey: "module")
+        super.encode(with: aCoder)
     }
 
     override func execute(params: [String], done: (String?) -> Void) {
@@ -240,16 +346,16 @@ class CommandMergeSwiftModule: Command {
         guard let lastLine: String = content.last else { return [] }
         var newLine = lastLine
         newLine.replaceCommandLineParam(withPrefix: "-filelist", replaceString: "-filelist $ModuleList")
-        
+
         if let range = lastLine.rangeOfOptionContent(option: "-o", reverse: true) {
             let modulePath = String(lastLine[range])
             swiftmodulePath = modulePath
-            
+
             if let idx = modulePath.lastIndex(of: "/") {
                 let dirPath = String(modulePath.prefix(upTo: idx))
                 let mergedModule = String(modulePath.suffix(from: modulePath.index(after: idx)))
                 assert(FileManager.default.fileExists(atPath: dirPath), "object folder not exist: \(dirPath)")
-                
+
                 var moduleList = ""
                 let enumerator = FileManager.default.enumerator(atPath: dirPath)
                 while let element = enumerator?.nextObject() as? String {
@@ -274,6 +380,15 @@ class CommandMergeSwiftModule: Command {
 }
 
 class CommandLd: Command {
+    var outputPath: String
+    var arch: String
+    
+    override init() {
+        outputPath = ""
+        arch = ""
+        super.init()
+    }
+
     init?(desc: String, content: [String]) {
         let arr = desc.split(separator: " ")
         guard arr.count == 7 else { return nil }
@@ -283,22 +398,51 @@ class CommandLd: Command {
         super.init(target: _target, name: String(arr[0]), content: content)
     }
 
+    required convenience init?(coder decoder: NSCoder) {
+        guard let arch = decoder.decodeObject(forKey: "arch") as? String,
+            let outputPath = decoder.decodeObject(forKey: "outputPath") as? String
+            else { return nil }
+        self.init()
+        self.arch = arch
+        self.outputPath = outputPath
+    }
+
+    override func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.arch, forKey: "arch")
+        aCoder.encode(self.outputPath, forKey: "outputPath")
+        super.encode(with: aCoder)
+    }
+
     override func execute(params: [String], done: (String?) -> Void) {
         super.execute(params: params, done: done)
     }
-    var outputPath: String
-    var arch: String
 }
 
 class CommandCompileXIB: Command {
     var inputPath: String
 
+    override init() {
+        inputPath = ""
+        super.init()
+    }
+    
     required init?(desc: String, content: [String]) {
         let arr = desc.split(separator: " ")
         guard arr.count == 5 else { return nil }
         self.inputPath = String(arr[1])
         let _target = arr.last!.replacingOccurrences(of: ")", with: "")
         super.init(target: _target, name: String(arr[0]), content: content)
+    }
+
+    required convenience init?(coder decoder: NSCoder) {
+        guard let inputPath = decoder.decodeObject(forKey: "inputPath") as? String else { return nil }
+        self.init()
+        self.inputPath = inputPath
+    }
+
+    override func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.inputPath, forKey: "inputPath")
+        super.encode(with: aCoder)
     }
 
     override func execute(params: [String], done: (String?) -> Void) {
@@ -319,6 +463,12 @@ class CommandCompileXIB: Command {
 class CommandCopyPNGFile: Command {
     var outputPath: String
     var inputPath: String
+    
+    override init() {
+        outputPath = ""
+        inputPath = ""
+        super.init()
+    }
 
     required init?(desc: String, content: [String]) {
         let arr = desc.split(separator: " ")
@@ -327,6 +477,21 @@ class CommandCopyPNGFile: Command {
         self.inputPath = String(arr[2])
         let _target = arr.last!.replacingOccurrences(of: ")", with: "")
         super.init(target: _target, name: String(arr[0]), content: content)
+    }
+
+    required convenience init?(coder decoder: NSCoder) {
+        guard let inputPath = decoder.decodeObject(forKey: "inputPath") as? String,
+            let outputPath = decoder.decodeObject(forKey: "outputPath") as? String
+            else { return nil }
+        self.init()
+        self.inputPath = inputPath
+        self.outputPath = outputPath
+    }
+
+    override func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.inputPath, forKey: "inputPath")
+        aCoder.encode(self.outputPath, forKey: "outputPath")
+        super.encode(with: aCoder)
     }
 
     override func execute(params: [String], done: (String?) -> Void) {
@@ -345,6 +510,11 @@ class CommandCopyPNGFile: Command {
 
 class CommandCodeSign: Command {
     var outputPath: String
+    
+    override init() {
+        outputPath  = ""
+        super.init()
+    }
 
     required init?(desc: String, content: [String]) {
         let arr = desc.split(separator: " ")
@@ -352,6 +522,17 @@ class CommandCodeSign: Command {
         self.outputPath = String(arr[1])
         let _target = arr.last!.replacingOccurrences(of: ")", with: "")
         super.init(target: _target, name: String(arr[0]), content: content)
+    }
+
+    required convenience init?(coder decoder: NSCoder) {
+        guard let outputPath = decoder.decodeObject(forKey: "outputPath") as? String else { return nil }
+        self.init()
+        self.outputPath = outputPath
+    }
+
+    override func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.outputPath, forKey: "outputPath")
+        super.encode(with: aCoder)
     }
 
     override func execute(params: [String], done: (String?) -> Void) {
