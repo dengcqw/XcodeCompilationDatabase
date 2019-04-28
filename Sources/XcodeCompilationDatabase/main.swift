@@ -8,7 +8,14 @@ let outPath = FileManager.default.currentDirectoryPath
 // - read from log file: done
 // - read from xcodebuild script: done
 // - read from shell pipe, as read from stdin: done
+// - store command with JSON: done
+// - command line standard support
 
+
+if let saveCommands = restoreCommands() {
+    print(saveCommands.keys)
+    exit(0)
+}
 
 // TODO: how to clean only one target
 let cleancmd = "xcodebuild clean -workspace TVGuor.xcworkspace -scheme TVGuor -configuration Debug -arch arm64"
@@ -34,6 +41,3 @@ let logSource = StdinSource.init()
 #endif
 splitLog(logSource)
 
-let command = restoreCommands()
-assert(command != nil)
-assert(command!.keys.count > 0)
