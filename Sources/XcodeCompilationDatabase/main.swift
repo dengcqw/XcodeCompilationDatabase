@@ -16,13 +16,13 @@ runCommand()
 exit(0)
 
 // check exist commands
-if let saveCommands = restoreCommands() {
-    saveCommands.forEach { (key, commands) in
-        print(key)
-        commands.forEach { print("    \($0.name)")}
-        print("    ")
-    }
-}
+//if let saveCommands = restoreCommands() {
+//    saveCommands.forEach { (key, commands) in
+//        print(key)
+//        commands.forEach { print("    \($0.name)")}
+//        print("    ")
+//    }
+//}
 
 
 // TODO: how to clean only one target

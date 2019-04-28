@@ -40,6 +40,48 @@ func getModifiedFiles() -> [String] {
     }
 }
 
+func getFileTarget(_ file: String) -> String {
+    // read xcode project
+    // or read filelist
+    return ""
+}
+
+func getFileCommandName(_ file: String) -> String {
+    guard let index = file.lastIndex(of: ".") else { return "" }
+    let type = file.suffix(from: index)
+    switch type {
+    case ".swift":
+        return "CompileSwift"
+    case ".c", ".m", ".mm":
+        return "CompileC"
+    case ".png":
+        return "CopyPNGFile"
+    case ".xib":
+        return "CompileXIB"
+    default:
+        return ""
+    }
+}
+
+func getCommand(commands: [Command], commandName: String) -> Command? {
+    for command in commands {
+        if command.name == commandName {
+            return command
+        }
+    }
+    return nil
+}
+
 func runCommand() {
-    print(getModifiedFiles())
+    let commands = restoreCommands()
+    for file in getModifiedFiles() {
+        print("\(file)")
+        if let tvguoCommands = commands?["TVGuor"],
+            let command = getCommand(commands: tvguoCommands, commandName: getFileCommandName(file)) {
+            print("\(command.name)")
+            command.execute(params: [file]) { (output) in
+                print("run \(command.name): \(output ?? "")")
+            }
+        }
+    }
 }

@@ -17,7 +17,7 @@ func readStringSync(fileHandle: FileHandle?) -> String? {
 final class Bash: CommandExecuting {
 
     // MARK: - CommandExecuting
-    
+
     func execute(script: String) -> FileHandle? {
         guard let scriptFilePath = tempFilePath() else { return nil }
         let data = script.data(using: .utf8)
