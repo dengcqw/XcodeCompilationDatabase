@@ -6,57 +6,16 @@
 	objectVersion = 46;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		"XcodeCompilationDatabase::XcodeCompilationDatabasePackageTests::ProductTarget" /* XcodeCompilationDatabasePackageTests */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = OBJ_43 /* Build configuration list for PBXAggregateTarget "XcodeCompilationDatabasePackageTests" */;
-			buildPhases = (
-			);
-			dependencies = (
-				OBJ_46 /* PBXTargetDependency */,
-			);
-			name = XcodeCompilationDatabasePackageTests;
-			productName = XcodeCompilationDatabasePackageTests;
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
 		982E6C6B226AB3D300975FCA /* CommandDesc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982E6C6A226AB3D300975FCA /* CommandDesc.swift */; };
 		982E6C6D226ABFCD00975FCA /* Bash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982E6C6C226ABFCD00975FCA /* Bash.swift */; };
 		9867CB4E2269B52700632C57 /* SplitLogFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9867CB4D2269B52700632C57 /* SplitLogFile.swift */; };
 		987110A72273FAFC006CAA39 /* CommandStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987110A62273FAFC006CAA39 /* CommandStorage.swift */; };
 		9875C9D5227297CA008AD4CB /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9875C9D4227297CA008AD4CB /* StreamReader.swift */; };
+		9888C95A2275A028008F6BC4 /* CommandRun.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9888C9592275A028008F6BC4 /* CommandRun.swift */; };
 		OBJ_25 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* main.swift */; };
-		OBJ_27 /* XcodeCompilationDatabaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "XcodeCompilationDatabase::XcodeCompilationDatabaseCore::Product" /* XcodeCompilationDatabaseCore.framework */; };
-		OBJ_34 /* XcodeCompilationDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* XcodeCompilationDatabase.swift */; };
-		OBJ_41 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
 		OBJ_52 /* LogParsingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* LogParsingTests.swift */; };
-		OBJ_54 /* XcodeCompilationDatabaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "XcodeCompilationDatabase::XcodeCompilationDatabaseCore::Product" /* XcodeCompilationDatabaseCore.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		9867CB4A2269B04900632C57 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = "XcodeCompilationDatabase::XcodeCompilationDatabaseCore";
-			remoteInfo = XcodeCompilationDatabaseCore;
-		};
-		9867CB4B2269B04900632C57 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = "XcodeCompilationDatabase::XcodeCompilationDatabaseCore";
-			remoteInfo = XcodeCompilationDatabaseCore;
-		};
-		9867CB4C2269B04A00632C57 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = "XcodeCompilationDatabase::XcodeCompilationDatabaseTests";
-			remoteInfo = XcodeCompilationDatabaseTests;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		982E6C6A226AB3D300975FCA /* CommandDesc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandDesc.swift; sourceTree = "<group>"; };
@@ -65,26 +24,17 @@
 		9867CB4D2269B52700632C57 /* SplitLogFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitLogFile.swift; sourceTree = "<group>"; };
 		987110A62273FAFC006CAA39 /* CommandStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandStorage.swift; sourceTree = "<group>"; };
 		9875C9D4227297CA008AD4CB /* StreamReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamReader.swift; sourceTree = "<group>"; };
-		OBJ_11 /* XcodeCompilationDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeCompilationDatabase.swift; sourceTree = "<group>"; };
+		9888C9592275A028008F6BC4 /* CommandRun.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandRun.swift; sourceTree = "<group>"; };
 		OBJ_14 /* LogParsingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogParsingTests.swift; sourceTree = "<group>"; };
 		OBJ_15 /* ExampleLogs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ExampleLogs; sourceTree = SOURCE_ROOT; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		OBJ_9 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		"XcodeCompilationDatabase::XcodeCompilationDatabase::Product" /* XcodeCompilationDatabase */ = {isa = PBXFileReference; lastKnownFileType = text; path = XcodeCompilationDatabase; sourceTree = BUILT_PRODUCTS_DIR; };
-		"XcodeCompilationDatabase::XcodeCompilationDatabaseCore::Product" /* XcodeCompilationDatabaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = XcodeCompilationDatabaseCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"XcodeCompilationDatabase::XcodeCompilationDatabaseTests::Product" /* XcodeCompilationDatabaseTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = XcodeCompilationDatabaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		"XcodeCompilationDatabase::XcodeCompilationDatabaseTests::Product" /* XcodeCompilationDatabaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = XcodeCompilationDatabaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		OBJ_26 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 0;
-			files = (
-				OBJ_27 /* XcodeCompilationDatabaseCore.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		OBJ_35 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
@@ -95,7 +45,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_54 /* XcodeCompilationDatabaseCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,9 +54,9 @@
 		OBJ_10 /* XcodeCompilationDatabaseCore */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_11 /* XcodeCompilationDatabase.swift */,
 				9867CB4D2269B52700632C57 /* SplitLogFile.swift */,
 				987110A62273FAFC006CAA39 /* CommandStorage.swift */,
+				9888C9592275A028008F6BC4 /* CommandRun.swift */,
 				982E6C6A226AB3D300975FCA /* CommandDesc.swift */,
 				9875C9D4227297CA008AD4CB /* StreamReader.swift */,
 				985A85BF226EE0E200F9AC68 /* simple.log */,
@@ -138,7 +87,6 @@
 			isa = PBXGroup;
 			children = (
 				"XcodeCompilationDatabase::XcodeCompilationDatabaseTests::Product" /* XcodeCompilationDatabaseTests.xctest */,
-				"XcodeCompilationDatabase::XcodeCompilationDatabaseCore::Product" /* XcodeCompilationDatabaseCore.framework */,
 				"XcodeCompilationDatabase::XcodeCompilationDatabase::Product" /* XcodeCompilationDatabase */,
 			);
 			name = Products;
@@ -176,20 +124,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		"XcodeCompilationDatabase::SwiftPMPackageDescription" /* XcodeCompilationDatabasePackageDescription */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_37 /* Build configuration list for PBXNativeTarget "XcodeCompilationDatabasePackageDescription" */;
-			buildPhases = (
-				OBJ_40 /* Sources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = XcodeCompilationDatabasePackageDescription;
-			productName = XcodeCompilationDatabasePackageDescription;
-			productType = "com.apple.product-type.framework";
-		};
 		"XcodeCompilationDatabase::XcodeCompilationDatabase" /* XcodeCompilationDatabase */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_21 /* Build configuration list for PBXNativeTarget "XcodeCompilationDatabase" */;
@@ -200,28 +134,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				OBJ_28 /* PBXTargetDependency */,
 			);
 			name = XcodeCompilationDatabase;
 			productName = XcodeCompilationDatabase;
 			productReference = "XcodeCompilationDatabase::XcodeCompilationDatabase::Product" /* XcodeCompilationDatabase */;
 			productType = "com.apple.product-type.tool";
-		};
-		"XcodeCompilationDatabase::XcodeCompilationDatabaseCore" /* XcodeCompilationDatabaseCore */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_30 /* Build configuration list for PBXNativeTarget "XcodeCompilationDatabaseCore" */;
-			buildPhases = (
-				OBJ_33 /* Sources */,
-				OBJ_35 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = XcodeCompilationDatabaseCore;
-			productName = XcodeCompilationDatabaseCore;
-			productReference = "XcodeCompilationDatabase::XcodeCompilationDatabaseCore::Product" /* XcodeCompilationDatabaseCore.framework */;
-			productType = "com.apple.product-type.framework";
 		};
 		"XcodeCompilationDatabase::XcodeCompilationDatabaseTests" /* XcodeCompilationDatabaseTests */ = {
 			isa = PBXNativeTarget;
@@ -233,7 +150,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				OBJ_55 /* PBXTargetDependency */,
 			);
 			name = XcodeCompilationDatabaseTests;
 			productName = XcodeCompilationDatabaseTests;
@@ -262,9 +178,6 @@
 			projectRoot = "";
 			targets = (
 				"XcodeCompilationDatabase::XcodeCompilationDatabase" /* XcodeCompilationDatabase */,
-				"XcodeCompilationDatabase::XcodeCompilationDatabaseCore" /* XcodeCompilationDatabaseCore */,
-				"XcodeCompilationDatabase::SwiftPMPackageDescription" /* XcodeCompilationDatabasePackageDescription */,
-				"XcodeCompilationDatabase::XcodeCompilationDatabasePackageTests::ProductTarget" /* XcodeCompilationDatabasePackageTests */,
 				"XcodeCompilationDatabase::XcodeCompilationDatabaseTests" /* XcodeCompilationDatabaseTests */,
 			);
 		};
@@ -277,26 +190,11 @@
 			files = (
 				9875C9D5227297CA008AD4CB /* StreamReader.swift in Sources */,
 				OBJ_25 /* main.swift in Sources */,
+				9888C95A2275A028008F6BC4 /* CommandRun.swift in Sources */,
 				9867CB4E2269B52700632C57 /* SplitLogFile.swift in Sources */,
 				987110A72273FAFC006CAA39 /* CommandStorage.swift in Sources */,
 				982E6C6B226AB3D300975FCA /* CommandDesc.swift in Sources */,
 				982E6C6D226ABFCD00975FCA /* Bash.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		OBJ_33 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 0;
-			files = (
-				OBJ_34 /* XcodeCompilationDatabase.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		OBJ_40 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 0;
-			files = (
-				OBJ_41 /* Package.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,24 +207,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		OBJ_28 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = "XcodeCompilationDatabase::XcodeCompilationDatabaseCore" /* XcodeCompilationDatabaseCore */;
-			targetProxy = 9867CB4A2269B04900632C57 /* PBXContainerItemProxy */;
-		};
-		OBJ_46 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = "XcodeCompilationDatabase::XcodeCompilationDatabaseTests" /* XcodeCompilationDatabaseTests */;
-			targetProxy = 9867CB4C2269B04A00632C57 /* PBXContainerItemProxy */;
-		};
-		OBJ_55 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = "XcodeCompilationDatabase::XcodeCompilationDatabaseCore" /* XcodeCompilationDatabaseCore */;
-			targetProxy = 9867CB4B2269B04900632C57 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		OBJ_22 /* Debug */ = {
@@ -397,72 +277,6 @@
 			};
 			name = Debug;
 		};
-		OBJ_31 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = XcodeCompilationDatabase.xcodeproj/XcodeCompilationDatabaseCore_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
-				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = XcodeCompilationDatabaseCore;
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
-				SWIFT_VERSION = 4.0;
-				TARGET_NAME = XcodeCompilationDatabaseCore;
-			};
-			name = Debug;
-		};
-		OBJ_32 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = XcodeCompilationDatabase.xcodeproj/XcodeCompilationDatabaseCore_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
-				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = XcodeCompilationDatabaseCore;
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
-				SWIFT_VERSION = 4.0;
-				TARGET_NAME = XcodeCompilationDatabaseCore;
-			};
-			name = Release;
-		};
-		OBJ_38 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				LD = /usr/bin/true;
-				OTHER_SWIFT_FLAGS = "-swift-version 4 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk";
-				SWIFT_VERSION = 4.0;
-			};
-			name = Debug;
-		};
-		OBJ_39 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				LD = /usr/bin/true;
-				OTHER_SWIFT_FLAGS = "-swift-version 4 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk";
-				SWIFT_VERSION = 4.0;
-			};
-			name = Release;
-		};
 		OBJ_4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -480,18 +294,6 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = SWIFT_PACKAGE;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				USE_HEADERMAP = NO;
-			};
-			name = Release;
-		};
-		OBJ_44 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-			};
-			name = Debug;
-		};
-		OBJ_45 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
 			};
 			name = Release;
 		};
@@ -554,33 +356,6 @@
 			buildConfigurations = (
 				OBJ_22 /* Debug */,
 				OBJ_23 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		OBJ_30 /* Build configuration list for PBXNativeTarget "XcodeCompilationDatabaseCore" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_31 /* Debug */,
-				OBJ_32 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		OBJ_37 /* Build configuration list for PBXNativeTarget "XcodeCompilationDatabasePackageDescription" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_38 /* Debug */,
-				OBJ_39 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		OBJ_43 /* Build configuration list for PBXAggregateTarget "XcodeCompilationDatabasePackageTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_44 /* Debug */,
-				OBJ_45 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

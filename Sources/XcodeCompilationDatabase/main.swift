@@ -1,4 +1,3 @@
-import XcodeCompilationDatabaseCore
 import Foundation
 
 let outPath = FileManager.default.currentDirectoryPath 
@@ -11,9 +10,13 @@ let outPath = FileManager.default.currentDirectoryPath
 // - store command with JSON: done
 // - command line standard support
 
-
+// check exist commands
 if let saveCommands = restoreCommands() {
-    print(saveCommands.keys)
+    saveCommands.forEach { (key, commands) in
+        print(key)
+        commands.forEach { print("    \($0.name)")}
+        print("    ")
+    }
     exit(0)
 }
 

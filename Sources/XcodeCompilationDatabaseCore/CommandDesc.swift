@@ -120,7 +120,7 @@ class CommandCompileC: Command {
         try container.encode(arch, forKey: .arch)
         try container.encode(lang, forKey: .lang)
         try super.encode(to: encoder)
-    }
+    }    
 
     override func execute(params: [String], done: (String?) -> Void) {
         guard let filePath = params.first, let fileName = filePath.getFileNameWithoutType() else { return }
