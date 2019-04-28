@@ -22,6 +22,7 @@ exit(0)
 //        commands.forEach { print("    \($0.name)")}
 //        print("    ")
 //    }
+//    exit(0)
 //}
 
 
