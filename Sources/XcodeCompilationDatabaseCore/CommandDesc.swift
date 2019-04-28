@@ -73,14 +73,14 @@ class Command: NSObject, Codable, CommandDescription {
         aCoder.encode(self.name, forKey: "name")
         aCoder.encode(self.content, forKey: "content")
     }
-    
+
     enum CodingKeys: String, CodingKey
     {
         case target
         case name
         case content
     }
-    
+
     required init(from decoder: Decoder) throws
     {
         let values = try decoder.container(keyedBy: CodingKeys.self)
@@ -88,7 +88,7 @@ class Command: NSObject, Codable, CommandDescription {
         self.name = try values.decode(String.self, forKey: .name)
         self.content = try values.decode([String].self, forKey: .content)
     }
-    
+
     func encode(to encoder: Encoder) throws
     {
         var container = encoder.container(keyedBy: CodingKeys.self)
@@ -136,7 +136,7 @@ class CommandCompileC: Command {
         self.arch = arch
         self.lang = lang
     }
-    
+
     enum CompileCCodingKeys: String, CodingKey
     {
         case outputPath
@@ -144,7 +144,7 @@ class CommandCompileC: Command {
         case arch
         case lang
     }
-    
+
     required init(from decoder: Decoder) throws
     {
         let values = try decoder.container(keyedBy: CompileCCodingKeys.self)
@@ -154,7 +154,7 @@ class CommandCompileC: Command {
         self.lang = try values.decode(String.self, forKey: .lang)
         try super.init(from: decoder)
     }
-    
+
     override func encode(to encoder: Encoder) throws
     {
         var container = encoder.container(keyedBy: CompileCCodingKeys.self)
@@ -164,7 +164,7 @@ class CommandCompileC: Command {
         try container.encode(lang, forKey: .lang)
         try super.encode(to: encoder)
     }
-    
+
     override func encode(with aCoder: NSCoder) {
         aCoder.encode(self.outputPath, forKey: "outputPath")
         aCoder.encode(self.inputPath, forKey: "inputPath")
@@ -231,13 +231,13 @@ class CommandCompileSwiftSources: Command {
         self.arch = arch
         self.wholeModuleOptimization = opt
     }
-    
+
     enum CompileSwiftSourcesKeys: String, CodingKey
     {
         case arch
         case opt
     }
-    
+
     required init(from decoder: Decoder) throws
     {
         let values = try decoder.container(keyedBy: CompileSwiftSourcesKeys.self)
@@ -245,7 +245,7 @@ class CommandCompileSwiftSources: Command {
         self.wholeModuleOptimization = try values.decode(Bool.self, forKey: .opt)
         try super.init(from: decoder)
     }
-    
+
     override func encode(to encoder: Encoder) throws
     {
         var container = encoder.container(keyedBy: CompileSwiftSourcesKeys.self)
@@ -253,7 +253,7 @@ class CommandCompileSwiftSources: Command {
         try container.encode(wholeModuleOptimization, forKey: .opt)
         try super.encode(to: encoder)
     }
-    
+
     override func encode(with aCoder: NSCoder) {
         aCoder.encode(self.arch, forKey: "arch")
         aCoder.encode(self.wholeModuleOptimization, forKey: "opt")
@@ -324,13 +324,13 @@ class CommandCompileSwift: Command {
         self.arch = arch
         self.inputPath = inputPath
     }
-    
+
     enum CompileSwiftKeys: String, CodingKey
     {
         case arch
         case inputPath
     }
-    
+
     required init(from decoder: Decoder) throws
     {
         let values = try decoder.container(keyedBy: CompileSwiftKeys.self)
@@ -338,7 +338,7 @@ class CommandCompileSwift: Command {
         self.inputPath = try values.decode(String.self, forKey: .inputPath)
         try super.init(from: decoder)
     }
-    
+
     override func encode(to encoder: Encoder) throws
     {
         var container = encoder.container(keyedBy: CompileSwiftKeys.self)
@@ -346,7 +346,7 @@ class CommandCompileSwift: Command {
         try container.encode(inputPath, forKey: .inputPath)
         try super.encode(to: encoder)
     }
-    
+
     override func encode(with aCoder: NSCoder) {
         aCoder.encode(self.arch, forKey: "arch")
         aCoder.encode(self.inputPath, forKey: "inputPath")
@@ -419,13 +419,13 @@ class CommandMergeSwiftModule: Command {
         self.arch = arch
         self.swiftmodulePath = module
     }
-    
+
     enum MergeSwiftModuleKeys: String, CodingKey
     {
         case arch
         case swiftmodulePath
     }
-    
+
     required init(from decoder: Decoder) throws
     {
         let values = try decoder.container(keyedBy: MergeSwiftModuleKeys.self)
@@ -433,7 +433,7 @@ class CommandMergeSwiftModule: Command {
         self.swiftmodulePath = try values.decode(String.self, forKey: .swiftmodulePath)
         try super.init(from: decoder)
     }
-    
+
     override func encode(to encoder: Encoder) throws
     {
         var container = encoder.container(keyedBy: MergeSwiftModuleKeys.self)
@@ -441,7 +441,7 @@ class CommandMergeSwiftModule: Command {
         try container.encode(swiftmodulePath, forKey: .swiftmodulePath)
         try super.encode(to: encoder)
     }
-    
+
     override func encode(with aCoder: NSCoder) {
         aCoder.encode(self.arch, forKey: "arch")
         aCoder.encode(self.swiftmodulePath, forKey: "module")
@@ -518,13 +518,13 @@ class CommandLd: Command {
         self.arch = arch
         self.outputPath = outputPath
     }
-    
+
     enum LdKeys: String, CodingKey
     {
         case arch
         case outputPath
     }
-    
+
     required init(from decoder: Decoder) throws
     {
         let values = try decoder.container(keyedBy: LdKeys.self)
@@ -532,7 +532,7 @@ class CommandLd: Command {
         self.outputPath = try values.decode(String.self, forKey: .outputPath)
         try super.init(from: decoder)
     }
-    
+
     override func encode(to encoder: Encoder) throws
     {
         var container = encoder.container(keyedBy: LdKeys.self)
@@ -540,7 +540,7 @@ class CommandLd: Command {
         try container.encode(outputPath, forKey: .outputPath)
         try super.encode(to: encoder)
     }
-    
+
     override func encode(with aCoder: NSCoder) {
         aCoder.encode(self.arch, forKey: "arch")
         aCoder.encode(self.outputPath, forKey: "outputPath")
@@ -573,26 +573,26 @@ class CommandCompileXIB: Command {
         self.init()
         self.inputPath = inputPath
     }
-    
+
     enum CompileXIBKeys: String, CodingKey
     {
         case inputPath
     }
-    
+
     required init(from decoder: Decoder) throws
     {
         let values = try decoder.container(keyedBy: CompileXIBKeys.self)
         self.inputPath = try values.decode(String.self, forKey: .inputPath)
         try super.init(from: decoder)
     }
-    
+
     override func encode(to encoder: Encoder) throws
     {
         var container = encoder.container(keyedBy: CompileXIBKeys.self)
         try container.encode(inputPath, forKey: .inputPath)
         try super.encode(to: encoder)
     }
-    
+
     override func encode(with aCoder: NSCoder) {
         aCoder.encode(self.inputPath, forKey: "inputPath")
         super.encode(with: aCoder)
@@ -640,13 +640,13 @@ class CommandCopyPNGFile: Command {
         self.inputPath = inputPath
         self.outputPath = outputPath
     }
-    
+
     enum CopyPNGFileKeys: String, CodingKey
     {
         case inputPath
         case outputPath
     }
-    
+
     required init(from decoder: Decoder) throws
     {
         let values = try decoder.container(keyedBy: CopyPNGFileKeys.self)
@@ -654,7 +654,7 @@ class CommandCopyPNGFile: Command {
          self.outputPath = try values.decode(String.self, forKey: .outputPath)
         try super.init(from: decoder)
     }
-    
+
     override func encode(to encoder: Encoder) throws
     {
         var container = encoder.container(keyedBy: CopyPNGFileKeys.self)
@@ -662,7 +662,7 @@ class CommandCopyPNGFile: Command {
         try container.encode(outputPath, forKey: .outputPath)
         try super.encode(to: encoder)
     }
-    
+
     override func encode(with aCoder: NSCoder) {
         aCoder.encode(self.inputPath, forKey: "inputPath")
         aCoder.encode(self.outputPath, forKey: "outputPath")
@@ -704,26 +704,26 @@ class CommandCodeSign: Command {
         self.init()
         self.outputPath = outputPath
     }
-    
+
     enum CodeSignKeys: String, CodingKey
     {
         case outputPath
     }
-    
+
     required init(from decoder: Decoder) throws
     {
         let values = try decoder.container(keyedBy: CodeSignKeys.self)
         self.outputPath = try values.decode(String.self, forKey: .outputPath)
         try super.init(from: decoder)
     }
-    
+
     override func encode(to encoder: Encoder) throws
     {
         var container = encoder.container(keyedBy: CodeSignKeys.self)
         try container.encode(outputPath, forKey: .outputPath)
         try super.encode(to: encoder)
     }
-    
+
     override func encode(with aCoder: NSCoder) {
         aCoder.encode(self.outputPath, forKey: "outputPath")
         super.encode(with: aCoder)
