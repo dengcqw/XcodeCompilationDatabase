@@ -21,8 +21,6 @@ let scriptCmd = [cdcmd, cleancmd, buildcmd].joined(separator: ";")
 let logSource = ScriptSource.init(shellCommand: scriptCmd)
 #elseif true
 
-let command = restoreCommands()
-exit(0)
 guard CommandLine.arguments.count > 1 else {
     print("""
           usage: /path/to/xcodebuild.log
@@ -35,3 +33,7 @@ let logSource = FileSource.init(filePath: logPath)
 let logSource = StdinSource.init()
 #endif
 splitLog(logSource)
+
+let command = restoreCommands()
+assert(command != nil)
+assert(command!.keys.count > 0)

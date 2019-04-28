@@ -64,7 +64,7 @@ func splitLog(_ logSource: LogSource) {
         }
     }
     if commands.count > 0 {
-        storeCommands(Array(commands.values))
+        storeCommands(commands)
     }
 }
 
