@@ -7,7 +7,8 @@ protocol CommandExecuting {
 }
 
 
-func readStringSync(fileHandle: FileHandle) -> String? {
+func readStringSync(fileHandle: FileHandle?) -> String? {
+    guard let fileHandle = fileHandle  else { return nil }
     let data = fileHandle.readDataToEndOfFile()
     let output = String(data: data, encoding: String.Encoding.utf8)
     return output

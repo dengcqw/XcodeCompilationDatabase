@@ -10,6 +10,11 @@ let outPath = FileManager.default.currentDirectoryPath
 // - store command with JSON: done
 // - command line standard support
 
+
+// run command
+runCommand()
+exit(0)
+
 // check exist commands
 if let saveCommands = restoreCommands() {
     saveCommands.forEach { (key, commands) in
@@ -17,8 +22,8 @@ if let saveCommands = restoreCommands() {
         commands.forEach { print("    \($0.name)")}
         print("    ")
     }
-    exit(0)
 }
+
 
 // TODO: how to clean only one target
 let cleancmd = "xcodebuild clean -workspace TVGuor.xcworkspace -scheme TVGuor -configuration Debug -arch arm64"
