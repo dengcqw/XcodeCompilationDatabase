@@ -20,6 +20,7 @@
 /* Begin PBXFileReference section */
 		982E6C6A226AB3D300975FCA /* CommandDesc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandDesc.swift; sourceTree = "<group>"; };
 		982E6C6C226ABFCD00975FCA /* Bash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bash.swift; sourceTree = "<group>"; };
+		9847A61E2276CB5F0030C98E /* Readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
 		985A85BF226EE0E200F9AC68 /* simple.log */ = {isa = PBXFileReference; lastKnownFileType = text; path = simple.log; sourceTree = "<group>"; };
 		9867CB4D2269B52700632C57 /* SplitLogFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitLogFile.swift; sourceTree = "<group>"; };
 		987110A62273FAFC006CAA39 /* CommandStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandStorage.swift; sourceTree = "<group>"; };
@@ -61,6 +62,7 @@
 				9875C9D4227297CA008AD4CB /* StreamReader.swift */,
 				985A85BF226EE0E200F9AC68 /* simple.log */,
 				982E6C6C226ABFCD00975FCA /* Bash.swift */,
+				9847A61E2276CB5F0030C98E /* Readme.md */,
 			);
 			name = XcodeCompilationDatabaseCore;
 			path = Sources/XcodeCompilationDatabaseCore;

@@ -74,14 +74,47 @@ func getCommand(commands: [Command], commandName: String) -> Command? {
 
 func runCommand() {
     let commands = restoreCommands()
+    guard let tvguoCommands = commands?["TVGuor"] else { return }
+    
+    var objPath: String = ""
+    for cmd in tvguoCommands {
+        if cmd is CommandMergeSwiftModule {
+            objPath = (cmd as! CommandMergeSwiftModule).swiftmodulePath ?? ""
+        }
+    }
+    
+    // process file
     for file in getModifiedFiles() {
         print("\(file)")
-        if let tvguoCommands = commands?["TVGuor"],
-            let command = getCommand(commands: tvguoCommands, commandName: getFileCommandName(file)) {
+         if let command = getCommand(commands: tvguoCommands, commandName: getFileCommandName(file)) {
             print("\(command.name)")
-            command.execute(params: [file]) { (output) in
-                print("run \(command.name): \(output ?? "")")
+            command.execute(params: [FileManager.default.currentDirectoryPath + "/" + file, objPath]) { (output) in
+                print("output \(command.name): \(output ?? "")")
             }
         }
     }
+    
+    // run other command in order
+    tvguoCommands
+        .filter { $0.name == "MergeSwiftModule" }
+        .forEach {
+            $0.execute(params: [], done: { (output) in
+                print(output ?? "")
+            })
+        }
+    tvguoCommands
+        .filter { $0.name == "Ld" }
+        .forEach {
+            $0.execute(params: [], done: { (output) in
+                print(output ?? "")
+            })
+        }
+    // code sign in same target coubld be more then one
+    tvguoCommands
+        .filter { $0.name == "CodeSign" }
+        .forEach {
+            $0.execute(params: [], done: { (output) in
+                print(output ?? "")
+            })
+        }
 }

@@ -100,6 +100,19 @@ func tempFilePath() -> String? {
     return temporaryFileURL?.absoluteString
 }
 
+
+func getSouceFilePath(target: String) -> String {
+    return "\(getWorkingDir())/\(target)-swiftfiles"
+}
+
+func getModuleFilePath(target: String) -> String {
+    return "\(getWorkingDir())/\(target)-swiftmodules"
+}
+
+func archivePath() -> String {
+    return getWorkingDir() + "/archivedCommands.json"
+}
+
 func getWorkingDir() -> String {
     let workingDir = FileManager.default.currentDirectoryPath + "/.FastCompile"
     if !FileManager.default.fileExists(atPath:  workingDir) {
@@ -173,7 +186,7 @@ public extension String {
         var distance: Int = 0
         for (index, char) in self.suffix(from: range.upperBound).enumerated() {
             if char == "-" && preChar == " " { // end to next option
-                distance = index
+                distance = index - 1
                 break
             } else {
                 preChar = char

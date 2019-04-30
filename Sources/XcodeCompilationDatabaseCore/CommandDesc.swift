@@ -43,7 +43,7 @@ class Command: Codable, CommandDescription {
     }
 
     func prepare(_ content: [String]) -> [String] {
-        return content
+        return content.filter { $0.trimmingCharacters(in: .whitespacesAndNewlines).count != 0 }
     }
 
     func equal(to: Command) -> Bool {
@@ -197,10 +197,6 @@ class CommandCompileSwiftSources: Command {
         return false
     }
 
-    func getFileName() -> String {
-        return "\(target)-swiftfiles"
-    }
-
     func cacheFileList(_ compileCommand: String) {
         let splited = compileCommand.split(separator: " ")
         var fileList = ""
@@ -210,9 +206,8 @@ class CommandCompileSwiftSources: Command {
                 fileList.append("\n")
             }
         }
-        let workingDir = getWorkingDir()
         do {
-            try fileList.write(toFile: workingDir + "/\(getFileName())", atomically: true, encoding: .utf8)
+            try fileList.write(toFile: getSouceFilePath(target: target), atomically: true, encoding: .utf8)
         } catch _ {
             print("cache swift files error")
         }
@@ -263,9 +258,10 @@ class CommandCompileSwift: Command {
     }
 
     override func execute(params: [String], done: (String?) -> Void) {
-        guard params.count == 3 else { return }
+        guard params.count == 2 else { return }
+        let sourceFileList = getSouceFilePath(target: target)
         guard let filePath = params.first, let fileName = filePath.getFileNameWithoutType() else { return }
-        let defines = ["FILEPATH=\(filePath)", "FILENAME=\(fileName)", "SourceFileList=\(params[1])", "ObjectsPATH=\(params[3])"]
+        let defines = ["FILEPATH=\(filePath)", "FILENAME=\(fileName)", "SourceFileList=\(sourceFileList)", "ObjectsPATH=\(params[1])"]
         super.execute(params: defines, done: done)
     }
 
@@ -339,7 +335,8 @@ class CommandMergeSwiftModule: Command {
     }
 
     override func execute(params: [String], done: (String?) -> Void) {
-        guard let moduleList = params.first else { return }
+//        guard let moduleList = params.first else { return }
+        let moduleList = getModuleFilePath(target: target)
         let defines = ["ModuleList=\(moduleList)"]
         super.execute(params: defines, done: done)
     }
@@ -351,7 +348,7 @@ class CommandMergeSwiftModule: Command {
 
         if let range = lastLine.rangeOfOptionContent(option: "-o", reverse: true) {
             let modulePath = String(lastLine[range])
-            swiftmodulePath = modulePath
+            self.swiftmodulePath = modulePath
 
             if let idx = modulePath.lastIndex(of: "/") {
                 let dirPath = String(modulePath.prefix(upTo: idx))
@@ -363,17 +360,14 @@ class CommandMergeSwiftModule: Command {
                 while let element = enumerator?.nextObject() as? String {
                     // mergedModule in the same folder, cannot include in file list
                     if element.hasSuffix(".swiftmodule") && !element.hasSuffix(mergedModule) {
-                        moduleList.append(element)
+                        moduleList.append(dirPath + "/" + element)
                         moduleList.append("\n")
                     }
                 }
-                if let file = tempFilePath() {
-                    print(file)
-                    do {
-                        try moduleList.write(toFile: file, atomically: true, encoding: .utf8)
-                    } catch _ {
-                        print("cache swift module list err:")
-                    }
+                do {
+                    try moduleList.write(toFile: getModuleFilePath(target: target), atomically: true, encoding: .utf8)
+                } catch _ {
+                    print("cache swift module list err:")
                 }
             }
         }
@@ -527,20 +521,17 @@ class CommandCodeSign: Command {
         super.init(target: _target, name: String(arr[0]), content: content)
     }
 
-    enum CodeSignKeys: String, CodingKey
-    {
+    enum CodeSignKeys: String, CodingKey {
         case outputPath
     }
 
-    required init(from decoder: Decoder) throws
-    {
+    required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodeSignKeys.self)
         self.outputPath = try values.decode(String.self, forKey: .outputPath)
         try super.init(from: decoder)
     }
 
-    override func encode(to encoder: Encoder) throws
-    {
+    override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodeSignKeys.self)
         try container.encode(outputPath, forKey: .outputPath)
         try super.encode(to: encoder)
@@ -548,5 +539,13 @@ class CommandCodeSign: Command {
 
     override func execute(params: [String], done: (String?) -> Void) {
         super.execute(params: params, done: done)
+    }
+    
+    override func equal(to: Command) -> Bool {
+        if let to = to as? CommandCodeSign {
+            return outputPath == to.outputPath &&
+                super.equal(to: to)
+        }
+        return false
     }
 }

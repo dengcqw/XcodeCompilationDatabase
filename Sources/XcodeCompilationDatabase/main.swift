@@ -27,6 +27,14 @@ exit(0)
 
 
 // TODO: how to clean only one target
+// NOTE: open xcode and clean project, then xcodebuild fail
+/*
+ Build system information
+ error: unable to attach DB: error: accessing build database "/Users/dengjinlong/Library/Developer/Xcode/DerivedData/TVGuor-fomvyhexvtnxgiapyrtldmbgjnod/Build/Intermediates.noindex/XCBuildData/build.db": database is locked Possibly there are two concurrent builds running in the same filesystem location.
+ */
+/*
+  whole module building cause symbol mixed
+ */
 let cleancmd = "xcodebuild clean -workspace TVGuor.xcworkspace -scheme TVGuor -configuration Debug -arch arm64"
 let cdcmd = "cd /Users/dengjinlong/Documents/8-tvguo/2-TVGuoiOSApp"
 // use pipe

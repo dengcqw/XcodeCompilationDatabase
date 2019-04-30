@@ -7,10 +7,6 @@
 
 import Foundation
 
-private func archivePath() -> String {
-    return getWorkingDir() + "/archivedCommands"
-}
-
 /// use wrapper to get class type
 struct CommandStorage: Codable {
     var name: String
