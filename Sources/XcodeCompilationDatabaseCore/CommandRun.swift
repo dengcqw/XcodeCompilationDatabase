@@ -75,14 +75,14 @@ func getCommand(commands: [Command], commandName: String) -> Command? {
 func runCommand() {
     let commands = restoreCommands()
     guard let tvguoCommands = commands?["TVGuor"] else { return }
-    
+
     var objPath: String = ""
     for cmd in tvguoCommands {
         if cmd is CommandMergeSwiftModule {
             objPath = (cmd as! CommandMergeSwiftModule).swiftmodulePath ?? ""
         }
     }
-    
+
     // process file
     for file in getModifiedFiles() {
         print("\(file)")
@@ -93,7 +93,7 @@ func runCommand() {
             }
         }
     }
-    
+
     // run other command in order
     tvguoCommands
         .filter { $0.name == "MergeSwiftModule" }
@@ -109,6 +109,13 @@ func runCommand() {
                 print(output ?? "")
             })
         }
+    tvguoCommands
+        .filter { $0.name == "GenerateDSYMFile" }
+        .forEach {
+            $0.execute(params: [], done: { (output) in
+                print(output ?? "")
+            })
+    }
     // code sign in same target coubld be more then one
     tvguoCommands
         .filter { $0.name == "CodeSign" }
@@ -117,4 +124,16 @@ func runCommand() {
                 print(output ?? "")
             })
         }
+    
+   let dest = "/Users/dengjinlong/Library/Developer/Xcode/DerivedData/TVGuor-fomvyhexvtnxgiapyrtldmbgjnod/Build/Products/Debug-iphoneos/"
+
+    let src = "/Users/dengjinlong/Documents/8-tvguo/2-TVGuoiOSApp/Build/Products/Debug-iphoneos"
+    
+    let app = "\(src)/TVGuor.app"
+    let dsym = "\(src)/TVGuor.app.dSYM"
+    
+    let cmd = "cp -rf \(app) \(dsym) \(dest)"
+    print(cmd)
+    
+    _ = Bash().execute(script: cmd)
 }

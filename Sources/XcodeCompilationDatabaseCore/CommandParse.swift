@@ -1,5 +1,5 @@
 //
-//  SplitLogFile.swift
+//  CommandParse.swift
 //  XcodeCompilationDatabase
 //
 //  Created by Deng Jinlong on 2019/4/19.
@@ -36,7 +36,9 @@ struct StdinSource: LogSource {
     }
 }
 
-func splitLog(_ logSource: LogSource) {
+// MARK: - main
+
+func parse(_ logSource: LogSource) {
     let reader = logSource.getStreamReader()
     var commands: [String: [Command]] = [:]
     
@@ -68,7 +70,12 @@ func splitLog(_ logSource: LogSource) {
     }
 }
 
+let targets = getProjectTargets()
+
 func addCommand(_ commands: inout [String: [Command]], _ command: Command) {
+    guard targets.contains(command.target) else {
+        return
+    }
     var sameTargetCommands = commands[command.target] ?? []
     
     for exist in sameTargetCommands {
@@ -114,7 +121,8 @@ func archivePath() -> String {
 }
 
 func getWorkingDir() -> String {
-    let workingDir = FileManager.default.currentDirectoryPath + "/.FastCompile"
+//    let workingDir = FileManager.default.currentDirectoryPath + "/.FastCompile"
+    let workingDir = "/Users/dengjinlong/Documents/8-tvguo/2-TVGuoiOSApp" + "/.FastCompile"
     if !FileManager.default.fileExists(atPath:  workingDir) {
         do {
             try FileManager.default.createDirectory(atPath: workingDir, withIntermediateDirectories: false, attributes: nil)
@@ -152,6 +160,9 @@ func createCommand(commandLines: [String]) -> Command? {
     case "CodeSign":
         let prefix = "    /usr/bin/codesign"
         return CommandCodeSign(desc: desc, content: content.filterCmd(prefix))
+    case "GenerateDSYMFile":
+        let target = desc.split(separator: " ").last!.replacingOccurrences(of: ")", with: "")
+        return Command(target: target, name: "GenerateDSYMFile", content: content)
     default:
         return nil
     }

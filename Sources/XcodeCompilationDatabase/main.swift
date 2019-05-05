@@ -1,5 +1,6 @@
 import Foundation
 
+let workingDir = FileManager.default.currentDirectoryPath
 let outPath = FileManager.default.currentDirectoryPath 
     + "/compile_commands.json"
 
@@ -35,15 +36,15 @@ exit(0)
 /*
   whole module building cause symbol mixed
  */
-let cleancmd = "xcodebuild clean -workspace TVGuor.xcworkspace -scheme TVGuor -configuration Debug -arch arm64"
+let cleancmd = "xcodebuild clean -workspace TVGuor.xcworkspace -scheme TVGuor -configuration Debug -arch arm64 -derivedDataPath \(workingDir)"
 let cdcmd = "cd /Users/dengjinlong/Documents/8-tvguo/2-TVGuoiOSApp"
 // use pipe
-let buildcmd = "xcodebuild build -workspace TVGuor.xcworkspace -scheme TVGuor -configuration Debug SWIFT_COMPILATION_MODE=singlefile SWIFT_WHOLE_MODULE_OPTIMIZATION=NO -arch arm64"
+let buildcmd = "xcodebuild build -workspace TVGuor.xcworkspace -scheme TVGuor -configuration Debug SWIFT_COMPILATION_MODE=singlefile SWIFT_WHOLE_MODULE_OPTIMIZATION=NO -arch arm64 -derivedDataPath \(workingDir)"
 let scriptCmd = [cdcmd, cleancmd, buildcmd].joined(separator: ";")
 
-#if false
+#if true
 let logSource = ScriptSource.init(shellCommand: scriptCmd)
-#elseif true
+#elseif false
 
 guard CommandLine.arguments.count > 1 else {
     print("""
@@ -56,5 +57,5 @@ let logSource = FileSource.init(filePath: logPath)
 #else
 let logSource = StdinSource.init()
 #endif
-splitLog(logSource)
+parse(logSource)
 
